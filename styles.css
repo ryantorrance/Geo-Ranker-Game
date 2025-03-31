@@ -1,0 +1,235 @@
+/* Set the overall page background to gray */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    background-color: #fff;  /* Gray background for the entire page */
+}
+
+/* Style the container to stand out with a white background */
+.container {
+    max-width: 600px;
+    margin: 20px auto;
+    margin-top: 38px; /* Adjust as needed */
+    padding: 20px;
+    background-color: #fff; /* White background for the container */
+    position: relative;     /* For positioning labels */
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+#question-container {
+    margin-bottom: 40px; /* Add margin-bottom */
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column; /* Display items in a column */
+    align-items: center; /* Center items horizontally */
+}
+
+li {
+    padding: 10px;
+    margin: 5px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    cursor: grab;
+    width: 80%; /* Make items wider */
+    height: 60px; /* Make items shorter */
+    box-sizing: border-box; /* Include padding and border in width */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px; /* Rounded corners */
+    font-weight: bold; /* Bold text */
+}
+
+.correct-order li {
+    background-color: #c3e6cb; /* Green background color */
+    border-color: #4cae4c; /* Green border color */
+}
+
+.incorrect-order li {
+    background-color: #f8d7da; /* Red background color */
+    border-color: #dc3545; /* Red border color */
+}
+
+#result {
+    margin-top: 30px;
+    font-weight: bold;
+}
+
+#check {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+#check:hover {
+    background-color: #0056b3;
+}
+
+.label-container {
+    position: relative;
+}
+
+#highest {
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    color: #999;
+    margin-top: 10px; /* Add margin-top for spacing */
+    margin-bottom: 10px; /* Add margin-bottom */
+    font-weight: bold; /* Bold text */
+    font-style: italic; /* Italic text */
+}
+
+#lowest {
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    color: #999;
+    margin-top: 10px; /* Add margin-top for spacing */
+    margin-bottom: 10px; /* Add margin-bottom */
+    font-weight: bold; /* Bold text */
+    font-style: italic; /* Italic text */
+}
+
+#lives {
+    padding-top: 10px; /* Add more space above the Lives counter if needed */
+}
+
+.result-message {
+    margin-bottom: 10px; /* Adjust the value as needed */
+}
+
+
+.hidden {
+    display: none;
+}
+
+#performance-summary {
+    margin-top: 20px;
+    padding: 20px;
+    border-top: 1px solid #ccc;
+    text-align: left;
+}
+
+#correct-order-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+#correct-order-list li {
+    padding: 10px;
+    margin: 5px 0;
+    background-color: #f1f1f1;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.guess {
+    display: flex;
+    justify-content: space-around;
+    margin: 10px 0;
+}
+
+.guess span {
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+}
+
+.guessed-orders-section {
+    margin-top: 20px;
+}
+
+.guessed-order-line {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 5px;
+}
+
+.order-item {
+    padding: 5px 10px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+}
+
+
+/* Modal */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+    top: -20%;
+    position: relative; /* Relative positioning for the close button */
+    max-width: 500px; /* Set a max-width for the modal */
+}
+
+#modal-body ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#modal-body li {
+    background-color: #ddd;
+    margin: 5px 0;
+    padding: 10px;
+    text-align: left;
+}
+
+/* The Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute; /* Position it in the top right corner */
+    top: 10px;
+    right: 10px;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.win-message {
+    margin-top: 0px;
+    margin-bottom: 20px; /* Adjust the value to get the desired spacing */
+}
