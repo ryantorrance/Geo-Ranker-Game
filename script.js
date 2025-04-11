@@ -186,6 +186,11 @@ function displayQuestion() {
     questionElement.textContent = currentQuestion.question;
     itemsElement.innerHTML = ''; // Clear previous items
 
+    Sortable.create(itemsElement, {
+    animation: 150,
+    ghostClass: 'sortable-ghost'
+    });
+
     currentAnswer.forEach(option => {
         const li = document.createElement('li');
         li.textContent = option;
@@ -202,25 +207,7 @@ function displayQuestion() {
     highestLabel.textContent = currentQuestion.highest;
     lowestLabel.textContent = currentQuestion.lowest;
 
-    // Enable drag-and-drop functionality
-    itemsElement.addEventListener('dragstart', dragStart);
-    itemsElement.addEventListener('dragover', dragOver);
-    itemsElement.addEventListener('drop', drop);
-}
-
-function dragStart(event) {
-    event.dataTransfer.setData('text/plain', event.target.dataset.value);
-}
-
-function dragOver(event) {
-    event.preventDefault();
-}
-
-function drop(event) {
-    event.preventDefault();
-    const droppedValue = event.dataTransfer.getData('text/plain');
-    const droppedItem = itemsElement.querySelector(`li[data-value="${droppedValue}"]`);
-    const targetItem = event.target.closest('li');
+    
 
     if (droppedItem && targetItem) {
         const droppedIndex = Array.from(itemsElement.children).indexOf(droppedItem);
