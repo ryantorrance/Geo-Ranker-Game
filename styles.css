@@ -172,6 +172,10 @@ li {
     border-radius: 5px;
 }
 
+.sortable-ghost {
+    opacity: 0.5;
+}
+
 
 /* Modal */
 .modal {
