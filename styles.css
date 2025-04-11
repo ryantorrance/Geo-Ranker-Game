@@ -190,13 +190,16 @@ li {
 /* Modal Content */
 .modal-content {
     background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
+    margin: 5% auto; /* 5% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
-    top: -20%;
-    position: relative; /* Relative positioning for the close button */
-    max-width: 500px; /* Set a max-width for the modal */
+    width: 90%; /* Could be more or less, depending on screen size */
+    max-width: 500px;
+    position: relative;
+    box-sizing: border-box;
+    overflow-y: auto;
+    max-height: 90vh;  /* Keep modal inside screen */
+    border-radius: 8px;
 }
 
 #modal-body ul {
