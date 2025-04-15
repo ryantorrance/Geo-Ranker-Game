@@ -11,6 +11,14 @@ let currentQuestion = null;
 let currentAnswer = null;
 let livesRemaining = 4;
 let guessedOrders = []; // Array to keep track of guessed orders
+let streak = 0;
+let highScore = localStorage.getItem('highScoreStreak') || 0;
+
+const streakCountElement = document.getElementById('streak-count');
+const streakHighScoreElement = document.getElementById('streak-high-score');
+
+// Display high score when page loads
+streakHighScoreElement.textContent = highScore;
 
 const questions = [
   {
@@ -175,8 +183,6 @@ const questions = [
   }
 ];
 
-
-
 function displayQuestion() {
     const index = Math.floor(Math.random() * questions.length);
     currentQuestion = questions[index];
@@ -248,6 +254,16 @@ function checkOrder() {
         itemsElement.classList.remove('incorrect-order'); // Remove incorrect-order class
         checkButton.disabled = true;
         showResultsModal(true);
+	streak++;
+	streakCountElement.textContent = streak;
+
+	// Check and update high score
+	if (streak > highScore) {
+    	highScore = streak;
+    	localStorage.setItem('highScoreStreak', highScore);
+    	streakHighScoreElement.textContent = highScore;
+}
+
     } else {
         resultElement.textContent = `Incorrect order. ${correctCount}/${currentQuestion.answer.length} correct. Please try again.`;
         itemsElement.classList.add('incorrect-order'); // Add class for incorrect order
@@ -261,6 +277,8 @@ function checkOrder() {
             });
             checkButton.disabled = true;
             showResultsModal(false);
+	    streak = 0;
+	    streakCountElement.textContent = streak;
         }
     }
 }
@@ -385,6 +403,25 @@ function showResultsModal(isWin) {
             modal.style.display = 'none';
         }
     };
+
+    const playAgainButton = document.createElement('button');
+    playAgainButton.textContent = 'Play Again';
+    playAgainButton.classList.add('play-again-button');
+    playAgainButton.onclick = function () {
+    modal.style.display = 'none';
+    resetGame();
+};
+modalContent.appendChild(playAgainButton);
+}
+
+    function resetGame() {
+    livesRemaining = 4;
+    guessedOrders = [];
+    resultElement.textContent = '';
+    livesCountElement.textContent = livesRemaining;
+    resetOrderStyles();  //This clears background/border styling
+    itemsElement.classList.remove('correct-order', 'incorrect-order');  //Also remove group  classes
+    displayQuestion();
 }
 
 
