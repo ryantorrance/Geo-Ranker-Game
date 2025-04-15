@@ -3,18 +3,30 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
     text-align: center;
-    background-color: #fff;  /* Gray background for the entire page */
 }
 
 /* Style the container to stand out with a white background */
 .container {
     max-width: 600px;
-    margin: 20px auto;
-    margin-top: 38px; /* Adjust as needed */
+    margin: 0 auto;
     padding: 20px;
-    background-color: #fff; /* White background for the container */
-    position: relative;     /* For positioning labels */
+    background-color: #fff;
+    position: relative;
+}
+
+/*to adjust for smaller screens and to prevent the game from being clipped */
+@media (max-height: 500px) {
+  body {
+    justify-content: flex-start;
+    padding-top: 20px;
+  }
 }
 
 h1 {
@@ -175,6 +187,7 @@ li {
 .sortable-ghost {
     opacity: 0.5;
 }
+
 
 
 /* Modal */
