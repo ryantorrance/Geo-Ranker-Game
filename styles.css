@@ -267,6 +267,10 @@ li {
     background-color: #218838;
 }
 
+.hidden {
+    display: none;
+}
+
 #streak {
     margin-top: 10px;
     font-weight: bold;
