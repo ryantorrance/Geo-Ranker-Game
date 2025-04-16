@@ -6,6 +6,8 @@ const livesCountElement = document.getElementById('lives-count');
 const checkButton = document.getElementById('check');
 const highestLabel = document.getElementById('highest');
 const lowestLabel = document.getElementById('lowest');
+const playAgainScreenButton = document.getElementById('play-again-screen');
+
 
 let currentQuestion = null;
 let currentAnswer = null;
@@ -13,6 +15,8 @@ let livesRemaining = 4;
 let guessedOrders = []; // Array to keep track of guessed orders
 let streak = 0;
 let highScore = localStorage.getItem('highScoreStreak') || 0;
+let sortableInstance = null;
+let modalPlayAgainClicked = false;
 
 const streakCountElement = document.getElementById('streak-count');
 const streakHighScoreElement = document.getElementById('streak-high-score');
@@ -192,10 +196,11 @@ function displayQuestion() {
     questionElement.textContent = currentQuestion.question;
     itemsElement.innerHTML = ''; // Clear previous items
 
-    Sortable.create(itemsElement, {
+    sortableInstance = Sortable.create(itemsElement, {
     animation: 150,
     ghostClass: 'sortable-ghost'
-    });
+});
+
 
     currentAnswer.forEach(option => {
         const li = document.createElement('li');
@@ -253,15 +258,20 @@ function checkOrder() {
         itemsElement.classList.add('correct-order');
         itemsElement.classList.remove('incorrect-order'); // Remove incorrect-order class
         checkButton.disabled = true;
+	if (sortableInstance) {
+    	sortableInstance.option("disabled", true);
+	}
         showResultsModal(true);
 	streak++;
 	streakCountElement.textContent = streak;
+
 
 	// Check and update high score
 	if (streak > highScore) {
     	highScore = streak;
     	localStorage.setItem('highScoreStreak', highScore);
     	streakHighScoreElement.textContent = highScore;
+
 }
 
     } else {
@@ -276,6 +286,9 @@ function checkOrder() {
                 li.draggable = false;
             });
             checkButton.disabled = true;
+	    if (sortableInstance) {
+    	    sortableInstance.option("disabled", true);
+	}
             showResultsModal(false);
 	    streak = 0;
 	    streakCountElement.textContent = streak;
@@ -389,28 +402,39 @@ function showResultsModal(isWin) {
 
     modalContent.appendChild(guessedOrdersSection);
 
+    modalPlayAgainClicked = false;
     modal.style.display = 'block';
 
     // Close the modal when clicking on the close button
     const closeButton = modal.querySelector('.close');
     closeButton.onclick = function () {
-        modal.style.display = 'none';
+    modal.style.display = 'none';
+    if (!modalPlayAgainClicked) {
+        playAgainScreenButton.classList.remove('hidden');
+    }
     };
+
 
     // Close the modal when clicking outside of the modal content
     window.onclick = function (event) {
-        if (event.target === modal) {
-            modal.style.display = 'none';
+    if (event.target === modal) {
+        modal.style.display = 'none';
+        if (!modalPlayAgainClicked) {
+            playAgainScreenButton.classList.remove('hidden');
         }
+    }
     };
+
 
     const playAgainButton = document.createElement('button');
     playAgainButton.textContent = 'Play Again';
     playAgainButton.classList.add('play-again-button');
     playAgainButton.onclick = function () {
     modal.style.display = 'none';
+    modalPlayAgainClicked = true; // mark that they used the modal CTA
     resetGame();
 };
+
 modalContent.appendChild(playAgainButton);
 }
 
@@ -422,11 +446,20 @@ modalContent.appendChild(playAgainButton);
     resetOrderStyles();  //This clears background/border styling
     itemsElement.classList.remove('correct-order', 'incorrect-order');  //Also remove group  classes
     displayQuestion();
+    if (sortableInstance) {
+    sortableInstance.option("disabled", false);
+}
+
 }
 
 
 
 
 document.getElementById('check').addEventListener('click', checkOrder);
+
+playAgainScreenButton.addEventListener('click', () => {
+    playAgainScreenButton.classList.add('hidden');
+    resetGame();
+});
 
 displayQuestion();
