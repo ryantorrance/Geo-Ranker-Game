@@ -383,8 +383,9 @@ function showResultsModal(isWin) {
 
     // Add each guessed order as a horizontal line with numbering
     guessedOrders.forEach((order, index) => {
-        const guessedOrderLine = document.createElement('div');
-        guessedOrderLine.classList.add('guessed-order-line');
+    const guessedOrderLine = document.createElement('div');
+    guessedOrderLine.classList.add('guessed-order-line');
+
 
         // Add the number at the start of each guessed order line
         const orderNumber = document.createElement('span');
@@ -392,12 +393,20 @@ function showResultsModal(isWin) {
         orderNumber.textContent = `${index + 1}. `;
         guessedOrderLine.appendChild(orderNumber);
 
-        order.forEach(item => {
-            const orderItem = document.createElement('span');
-            orderItem.classList.add('order-item');
-            orderItem.textContent = item;
-            guessedOrderLine.appendChild(orderItem);
-        });
+        order.forEach((item, i) => {
+    const orderItem = document.createElement('span');
+    orderItem.classList.add('order-item');
+    orderItem.textContent = item;
+
+    if (item === currentQuestion.answer[i]) {
+        orderItem.classList.add('correct-item');
+    } else {
+        orderItem.classList.add('incorrect-item');
+    }
+
+    guessedOrderLine.appendChild(orderItem);
+});
+
         guessedOrdersSection.appendChild(guessedOrderLine);
     });
 
