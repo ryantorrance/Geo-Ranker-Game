@@ -312,6 +312,7 @@ function showResultsModal(isWin) {
     const modal = document.getElementById('resultsModal');
     const modalContent = document.getElementById('modalContent');
     modalContent.innerHTML = ''; // Clear previous content
+    modal.classList.add('show');
 
     if (isWin) {
         const winMessage = document.createElement('h2');
@@ -403,12 +404,12 @@ function showResultsModal(isWin) {
     modalContent.appendChild(guessedOrdersSection);
 
     modalPlayAgainClicked = false;
-    modal.style.display = 'block';
+
 
     // Close the modal when clicking on the close button
     const closeButton = modal.querySelector('.close');
     closeButton.onclick = function () {
-    modal.style.display = 'none';
+     modal.classList.remove('show');
     if (!modalPlayAgainClicked) {
         playAgainScreenButton.classList.remove('hidden');
     }
@@ -418,7 +419,7 @@ function showResultsModal(isWin) {
     // Close the modal when clicking outside of the modal content
     window.onclick = function (event) {
     if (event.target === modal) {
-        modal.style.display = 'none';
+        modal.classList.remove('show');
         if (!modalPlayAgainClicked) {
             playAgainScreenButton.classList.remove('hidden');
         }
@@ -430,7 +431,7 @@ function showResultsModal(isWin) {
     playAgainButton.textContent = 'Play Again';
     playAgainButton.classList.add('play-again-button');
     playAgainButton.onclick = function () {
-    modal.style.display = 'none';
+    modal.classList.remove('show');
     modalPlayAgainClicked = true; // mark that they used the modal CTA
     resetGame();
 };
@@ -438,7 +439,8 @@ function showResultsModal(isWin) {
 modalContent.appendChild(playAgainButton);
 }
 
-    function resetGame() {
+function resetGame() {
+    document.getElementById('resultsModal').classList.remove('show');
     livesRemaining = 4;
     guessedOrders = [];
     resultElement.textContent = '';
@@ -461,5 +463,6 @@ playAgainScreenButton.addEventListener('click', () => {
     playAgainScreenButton.classList.add('hidden');
     resetGame();
 });
+
 
 displayQuestion();
