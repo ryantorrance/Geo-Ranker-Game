@@ -2,22 +2,26 @@
 body {
     font-family: Arial, sans-serif;
     margin: 0;
-    padding: 20px;
+    padding: 5vh 20px 20px; /* top padding pushes content downward a bit */
     background-color: #fff;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start; /* align to top */
     text-align: center;
     min-height: 100vh;
     box-sizing: border-box;
-    overflow-y: auto; /* Allow scrolling if needed */
+    overflow-y: auto;
 }
+
 
 
 /* Style the container to stand out with a white background */
 .container {
     max-width: 600px;
     width: 100%;
+    padding: 20px;
+    background-color: #fff;
+    position: relative;
     box-sizing: border-box;
 }
 
@@ -286,3 +290,4 @@ li {
 #streak-high-score {
     color: #28a745;
 }
+
