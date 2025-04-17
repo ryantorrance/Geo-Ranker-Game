@@ -198,7 +198,7 @@ li {
 
 /* Modal */
 .modal {
-    display: none;
+    display: none; /* hidden by default */
     position: fixed;
     z-index: 1;
     left: 0;
@@ -206,22 +206,33 @@ li {
     width: 100%;
     height: 100%;
     background-color: rgba(0,0,0,0.4);
+    padding: 20px;
+    box-sizing: border-box;
 }
+
+/* Add this new class below it */
+.modal.show {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
 
 /* Modal Content */
 .modal-content {
     background-color: #fefefe;
-    margin: 5% auto; /* 5% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
-    width: 90%; /* Could be more or less, depending on screen size */
+    width: 90%;
     max-width: 500px;
+    max-height: 90vh; /* restrict modal height */
+    overflow-y: auto;  /* scroll internally if needed */
+    border-radius: 8px;
     position: relative;
     box-sizing: border-box;
-    overflow-y: auto;
-    max-height: 90vh;  /* Keep modal inside screen */
-    border-radius: 8px;
 }
+
 
 #modal-body ul {
     list-style-type: none;
