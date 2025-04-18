@@ -336,3 +336,54 @@ li {
     padding: 5px 10px;
     margin-right: 5px;
 }
+
+.guessed-order-line {
+    display: flex;
+    overflow-x: auto;
+    gap: 8px;
+    margin-bottom: 12px;
+    padding-bottom: 6px;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Hide scrollbars on iOS/Android where possible */
+.guessed-order-line::-webkit-scrollbar {
+    height: 4px;
+}
+.guessed-order-line::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 10px;
+}
+
+/* Make all items uniform */
+.order-item, .order-number {
+    min-width: 90px;       /* Equal width */
+    height: 45px;          /* Equal height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 14px;
+    border-radius: 5px;
+    padding: 5px;
+    white-space: nowrap;
+    box-sizing: border-box;
+}
+
+/* Optional for better alignment of the number */
+.order-number {
+    background-color: #eee;
+    border: 1px solid #ccc;
+}
+
+/* Coloring for correctness */
+.correct-item {
+    background-color: #c3e6cb;
+    border: 1px solid #4cae4c;
+}
+
+.incorrect-item {
+    background-color: #f8d7da;
+    border: 1px solid #dc3545;
+}
+
