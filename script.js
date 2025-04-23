@@ -82,14 +82,6 @@ const questions = [
   metrics: ['14M sq km', '9.2M sq km', '2.3M sq km', '1.3M sq km']
 },
 {
-  question: 'Rank these countries by number of bordering nations from most to least:',
-  highest: 'Most Borders',
-  lowest: 'Least Borders',
-  options: ['Russia', 'China', 'Germany', 'India'],
-  answer: ['China', 'Russia', 'Germany', 'India'],
-  metrics: ['14 borders', '14 borders', '9 borders', '7 borders']
-},
-{
   question: 'Rank these countries by GDP (nominal) from highest to lowest:',
   highest: 'Highest GDP',
   lowest: 'Lowest GDP',
