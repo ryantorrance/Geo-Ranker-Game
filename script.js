@@ -26,165 +26,157 @@ streakHighScoreElement.textContent = highScore;
 
 const questions = [
   {
-    question: 'Rank these continents by population from most to least:',
-    highest: 'Most Populated',
-    lowest: 'Least Populated',
-    options: ['Asia', 'Africa', 'Europe', 'South America'],
-    answer: ['Asia', 'Africa', 'Europe', 'South America'],
-    metrics: ['4.7B', '1.3B', '746M', '430M']
-  },
-  {
-    question: 'Rank these countries by total area from largest to smallest:',
-    highest: 'Largest Area',
-    lowest: 'Smallest Area',
-    options: ['Russia', 'Canada', 'China', 'United States'],
-    answer: ['Russia', 'Canada', 'China', 'United States'],
-    metrics: ['17.1M sq km', '9.98M sq km', '9.6M sq km', '9.5M sq km']
-  },
-  {
-    question: 'Rank these countries by population from largest to smallest:',
-    highest: 'Most Populous',
-    lowest: 'Least Populous',
-    options: ['China', 'India', 'United States', 'Indonesia'],
-    answer: ['China', 'India', 'United States', 'Indonesia'],
-    metrics: ['1.4B', '1.39B', '331M', '273M']
-  },
-  {
-    question: 'Rank these countries by coastline length from longest to shortest:',
-    highest: 'Longest Coastline',
-    lowest: 'Shortest Coastline',
-    options: ['Canada', 'Indonesia', 'Russia', 'Norway'],
-    answer: ['Canada', 'Indonesia', 'Russia', 'Norway'],
-    metrics: ['202,080 km', '54,716 km', '37,653 km', '25,148 km']
-  },
-  {
-    question: 'Rank these countries by number of international land borders from most to least:',
-    highest: 'Most Borders',
-    lowest: 'Least Borders',
-    options: ['China', 'Russia', 'Brazil', 'United States'],
-    answer: ['China', 'Russia', 'Brazil', 'United States'],
-    metrics: ['15 borders', '14 borders', '10 borders', '2 borders']
-  },
-  {
-    question: 'Rank these countries by percentage of land area covered by forest from highest to lowest:',
-    highest: 'Most Forested',
-    lowest: 'Least Forested',
-    options: ['Canada', 'Russia', 'United States', 'Brazil'],
-    answer: ['Canada', 'Russia', 'United States', 'Brazil'],
-    metrics: ['38%', '35%', '33.9%', '33%']
-  },
-  {
-    question: 'Rank these mountain ranges by average elevation from highest to lowest:',
-    highest: 'Highest Average Elevation',
-    lowest: 'Lowest Average Elevation',
-    options: ['Himalayas', 'Andes', 'Alps', 'Rocky Mountains'],
-    answer: ['Himalayas', 'Andes', 'Alps', 'Rocky Mountains'],
-    metrics: ['6,100m', '4,000m', '2,900m', '2,000m']
-  },
-  {
-    question: 'Rank these countries by number of UNESCO World Heritage Sites from most to least:',
-    highest: 'Most World Heritage Sites',
-    lowest: 'Least World Heritage Sites',
-    options: ['Italy', 'China', 'Germany', 'Spain'],
-    answer: ['Italy', 'China', 'Germany', 'Spain'],
-    metrics: ['58 sites', '56 sites', '51 sites', '49 sites']
-  },
-  {
-    question: 'Rank these countries by number of active volcanoes from most to least:',
-    highest: 'Most Active Volcanoes',
-    lowest: 'Least Active Volcanoes',
-    options: ['United States', 'Indonesia', 'Russia', 'Japan'],
-    answer: ['United States', 'Indonesia', 'Russia', 'Japan'],
-    metrics: ['173 volcanoes', '127 volcanoes', '120 volcanoes', '110 volcanoes']
-  },
-  {
-    question: 'Rank these countries by agricultural land area from largest to smallest:',
-    highest: 'Largest Agricultural Land',
-    lowest: 'Smallest Agricultural Land',
-    options: ['United States', 'China', 'Australia', 'Brazil'],
-    answer: ['United States', 'China', 'Australia', 'Brazil'],
-    metrics: ['442M hectares', '525M hectares', '427M hectares', '258M hectares']
-  },
-  {
-    question: 'Rank these rivers by length from longest to shortest:',
-    highest: 'Longest River',
-    lowest: 'Shortest River',
-    options: ['Nile', 'Amazon', 'Yangtze', 'Mississippi'],
-    answer: ['Nile', 'Amazon', 'Yangtze', 'Mississippi'],
-    metrics: ['6,650 km', '6,400 km', '6,300 km', '3,730 km']
-  },
-  {
-    question: 'Rank these countries by total renewable water resources from most to least:',
-    highest: 'Most Renewable Water Resources',
-    lowest: 'Least Renewable Water Resources',
-    options: ['Brazil', 'Russia', 'Canada', 'United States'],
-    answer: ['Brazil', 'Russia', 'Canada', 'United States'],
-    metrics: ['8,233 km³', '4,508 km³', '2,902 km³', '2,818 km³']
-  },
-  {
-    question: 'Rank these lakes by depth from deepest to shallowest:',
-    highest: 'Deepest',
-    lowest: 'Shallowest',
-    options: ['Baikal', 'Tanganyika', 'Caspian Sea', 'Victoria'],
-    answer: ['Baikal', 'Tanganyika', 'Caspian Sea', 'Victoria'],
-    metrics: ['1,642m', '1,470m', '1,025m', '83m']
-  },
-  {
-    question: 'Rank these mountains by elevation from highest to lowest:',
-    highest: 'Highest Elevation',
-    lowest: 'Lowest Elevation',
-    options: ['Everest', 'K2', 'Kangchenjunga', 'Lhotse'],
-    answer: ['Everest', 'K2', 'Kangchenjunga', 'Lhotse'],
-    metrics: ['8,848m', '8,611m', '8,586m', '8,516m']
-  },
-  {
-    question: 'Rank these deserts by area from largest to smallest:',
-    highest: 'Largest Area',
-    lowest: 'Smallest Area',
-    options: ['Sahara', 'Arabian', 'Gobi', 'Kalahari'],
-    answer: ['Sahara', 'Arabian', 'Gobi', 'Kalahari'],
-    metrics: ['9.2M sq km', '2.3M sq km', '1.3M sq km', '0.9M sq km']
-  },
-  {
-    question: 'Rank these islands by population from most to least:',
-    highest: 'Most Populated',
-    lowest: 'Least Populated',
-    options: ['Java', 'Honshu', 'Great Britain', 'Luzon'],
-    answer: ['Java', 'Honshu', 'Great Britain', 'Luzon'],
-    metrics: ['145M', '104M', '68M', '64M']
-  },
-  {
-    question: 'Rank these oceans by size from largest to smallest:',
-    highest: 'Largest Ocean',
-    lowest: 'Smallest Ocean',
-    options: ['Pacific', 'Atlantic', 'Indian', 'Southern'],
-    answer: ['Pacific', 'Atlantic', 'Indian', 'Southern'],
-    metrics: ['168M sq km', '85M sq km', '70M sq km', '21M sq km']
-  },
-  {
-    question: 'Rank these cities by population from most to least:',
-    highest: 'Most Populated',
-    lowest: 'Least Populated',
-    options: ['Tokyo', 'Delhi', 'Shanghai', 'São Paulo'],
-    answer: ['Tokyo', 'Delhi', 'Shanghai', 'São Paulo'],
-    metrics: ['37M', '31M', '27M', '22M']
-  },
-  {
-    question: 'Rank these continents by land area from largest to smallest:',
-    highest: 'Largest Land Area',
-    lowest: 'Smallest Land Area',
-    options: ['Asia', 'Africa', 'North America', 'South America'],
-    answer: ['Asia', 'Africa', 'North America', 'South America'],
-    metrics: ['44.5M sq km', '30.2M sq km', '24.7M sq km', '17.8M sq km']
-  },
-  {
-    question: 'Rank these US states by population from most to least:',
-    highest: 'Most Populated',
-    lowest: 'Least Populated',
-    options: ['California', 'Texas', 'Florida', 'New York'],
-    answer: ['California', 'Texas', 'Florida', 'New York'],
-    metrics: ['39M', '29M', '21M', '19M']
-  }
+  question: 'Rank these cities by elevation from highest to lowest:',
+  highest: 'Highest Elevation',
+  lowest: 'Lowest Elevation',
+  options: ['La Paz', 'Quito', 'Mexico City', 'Kathmandu'],
+  answer: ['La Paz', 'Quito', 'Mexico City', 'Kathmandu'],
+  metrics: ['3,640m', '2,850m', '2,240m', '1,400m']
+},
+{
+  question: 'Rank these African countries by population from most to least:',
+  highest: 'Most Populous',
+  lowest: 'Least Populous',
+  options: ['Nigeria', 'Ethiopia', 'Egypt', 'South Africa'],
+  answer: ['Nigeria', 'Ethiopia', 'Egypt', 'South Africa'],
+  metrics: ['223M', '126M', '111M', '60M']
+},
+{
+  question: 'Rank these U.S. states by total area from largest to smallest:',
+  highest: 'Largest Area',
+  lowest: 'Smallest Area',
+  options: ['Alaska', 'Texas', 'California', 'Montana'],
+  answer: ['Alaska', 'Texas', 'California', 'Montana'],
+  metrics: ['1.72M sq km', '695k sq km', '424k sq km', '381k sq km']
+},
+{
+  question: 'Rank these South American rivers by length from longest to shortest:',
+  highest: 'Longest River',
+  lowest: 'Shortest River',
+  options: ['Amazon', 'Paraná', 'Madeira', 'Orinoco'],
+  answer: ['Amazon', 'Paraná', 'Madeira', 'Orinoco'],
+  metrics: ['6,400 km', '4,880 km', '3,380 km', '2,140 km']
+},
+{
+  question: 'Rank these countries by number of time zones (including overseas territories):',
+  highest: 'Most Time Zones',
+  lowest: 'Fewest Time Zones',
+  options: ['France', 'United States', 'Russia', 'United Kingdom'],
+  answer: ['France', 'Russia', 'United States', 'United Kingdom'],
+  metrics: ['12 zones', '11 zones', '9 zones', '9 zones']
+},
+{
+  question: 'Rank these capital cities by population from most to least:',
+  highest: 'Most Populated Capital',
+  lowest: 'Least Populated Capital',
+  options: ['Beijing', 'Tokyo', 'Jakarta', 'Bangkok'],
+  answer: ['Tokyo', 'Jakarta', 'Beijing', 'Bangkok'],
+  metrics: ['37M', '34M', '21M', '10.5M']
+},
+{
+  question: 'Rank these deserts by area from largest to smallest:',
+  highest: 'Largest Desert',
+  lowest: 'Smallest Desert',
+  options: ['Antarctic', 'Sahara', 'Arabian', 'Gobi'],
+  answer: ['Antarctic', 'Sahara', 'Arabian', 'Gobi'],
+  metrics: ['14M sq km', '9.2M sq km', '2.3M sq km', '1.3M sq km']
+},
+{
+  question: 'Rank these countries by number of bordering nations from most to least:',
+  highest: 'Most Borders',
+  lowest: 'Least Borders',
+  options: ['Russia', 'China', 'Germany', 'India'],
+  answer: ['China', 'Russia', 'Germany', 'India'],
+  metrics: ['14 borders', '14 borders', '9 borders', '7 borders']
+},
+{
+  question: 'Rank these countries by GDP (nominal) from highest to lowest:',
+  highest: 'Highest GDP',
+  lowest: 'Lowest GDP',
+  options: ['United States', 'Germany', 'Japan', 'United Kingdom'],
+  answer: ['United States', 'Japan', 'Germany', 'United Kingdom'],
+  metrics: ['$26.9T', '$4.4T', '$4.3T', '$3.1T']
+},
+{
+  question: 'Rank these European countries by forest cover percentage from highest to lowest:',
+  highest: 'Most Forested',
+  lowest: 'Least Forested',
+  options: ['Finland', 'Sweden', 'Slovenia', 'France'],
+  answer: ['Finland', 'Sweden', 'Slovenia', 'France'],
+  metrics: ['73%', '69%', '62%', '31%']
+},
+{
+  question: 'Rank these countries by number of islands from most to least:',
+  highest: 'Most Islands',
+  lowest: 'Fewest Islands',
+  options: ['Sweden', 'Finland', 'Indonesia', 'Canada'],
+  answer: ['Sweden', 'Finland', 'Canada', 'Indonesia'],
+  metrics: ['267,570', '188,000', '52,455', '17,504']
+},
+{
+  question: 'Rank these landlocked countries by population from most to least:',
+  highest: 'Most Populous',
+  lowest: 'Least Populous',
+  options: ['Ethiopia', 'Uzbekistan', 'Afghanistan', 'Chad'],
+  answer: ['Ethiopia', 'Afghanistan', 'Uzbekistan', 'Chad'],
+  metrics: ['126M', '41M', '36M', '18M']
+},
+{
+  question: 'Rank these cities by average annual rainfall from highest to lowest:',
+  highest: 'Most Rainfall',
+  lowest: 'Least Rainfall',
+  options: ['Mumbai', 'Singapore', 'London', 'Cairo'],
+  answer: ['Mumbai', 'Singapore', 'London', 'Cairo'],
+  metrics: ['2,200 mm', '2,170 mm', '600 mm', '18 mm']
+},
+{
+  question: 'Rank these countries by number of UNESCO natural sites from most to least:',
+  highest: 'Most Natural Sites',
+  lowest: 'Least Natural Sites',
+  options: ['Australia', 'Brazil', 'Mexico', 'India'],
+  answer: ['Australia', 'India', 'Mexico', 'Brazil'],
+  metrics: ['13 sites', '10 sites', '9 sites', '7 sites']
+},
+{
+  question: 'Rank these seas by average depth from deepest to shallowest:',
+  highest: 'Deepest Sea',
+  lowest: 'Shallowest Sea',
+  options: ['Caribbean Sea', 'Bering Sea', 'Mediterranean Sea', 'Baltic Sea'],
+  answer: ['Caribbean Sea', 'Bering Sea', 'Mediterranean Sea', 'Baltic Sea'],
+  metrics: ['2,200m', '1,547m', '1,500m', '55m']
+},
+{
+  question: 'Rank these countries by total number of lakes from most to least:',
+  highest: 'Most Lakes',
+  lowest: 'Fewest Lakes',
+  options: ['Canada', 'Russia', 'India', 'Australia'],
+  answer: ['Canada', 'Russia', 'Australia', 'India'],
+  metrics: ['879,800+', '200,000+', '14,500+', '3,000+']
+},
+{
+  question: 'Rank these countries by population density from highest to lowest:',
+  highest: 'Most Dense',
+  lowest: 'Least Dense',
+  options: ['Bangladesh', 'South Korea', 'Netherlands', 'United States'],
+  answer: ['Bangladesh', 'South Korea', 'Netherlands', 'United States'],
+  metrics: ['1,265/km²', '527/km²', '511/km²', '36/km²']
+},
+{
+  question: 'Rank these world regions by number of countries from most to least:',
+  highest: 'Most Countries',
+  lowest: 'Fewest Countries',
+  options: ['Africa', 'Europe', 'Asia', 'Oceania'],
+  answer: ['Africa', 'Asia', 'Europe', 'Oceania'],
+  metrics: ['54 countries', '49 countries', '44 countries', '16 countries']
+},
+{
+  question: 'Rank these countries by number of volcanoes from most to least:',
+  highest: 'Most Volcanoes',
+  lowest: 'Least Volcanoes',
+  options: ['Indonesia', 'Japan', 'Chile', 'Philippines'],
+  answer: ['Indonesia', 'Japan', 'Philippines', 'Chile'],
+  metrics: ['127 active', '110 active', '53 active', '40 active']
+}
 ];
 
 function displayQuestion() {
