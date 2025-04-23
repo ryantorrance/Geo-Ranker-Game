@@ -18,12 +18,16 @@ body {
 /* Style the container to stand out with a white background */
 .container {
     max-width: 600px;
-    width: 100%;
+    margin: 0 auto;
     padding: 20px;
     background-color: #fff;
     position: relative;
     box-sizing: border-box;
+
+    /* Ensure it's centered and respects full viewport width if needed */
+    width: 90vw;
 }
+
 
 
 /*to adjust for smaller screens and to prevent the game from being clipped */
@@ -31,6 +35,10 @@ body {
   body {
     justify-content: flex-start;
     padding-top: 10px;
+  }
+  #highest,
+  #lowest {
+    margin: 4px 0;
   }
 }
 
@@ -40,7 +48,7 @@ h1 {
 }
 
 #question-container {
-    margin-bottom: 40px; /* Add margin-bottom */
+    margin-bottom: 20px; /* Add margin-bottom */
 }
 
 ul {
@@ -103,39 +111,44 @@ li {
 }
 
 #highest {
-    position: absolute;
-    top: -30px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 12px;
-    color: #999;
-    margin-top: 10px; /* Add margin-top for spacing */
-    margin-bottom: 10px; /* Add margin-bottom */
-    font-weight: bold; /* Bold text */
-    font-style: italic; /* Italic text */
+  text-align: center;
+  font-size: 12px;
+  color: #999;
+  font-weight: bold;
+  font-style: italic;
+  margin: 4px 0; /* Adjust spacing here */
+  line-height: 1.4;
 }
 
 #lowest {
-    position: absolute;
-    bottom: -30px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 12px;
-    color: #999;
-    margin-top: 10px; /* Add margin-top for spacing */
-    margin-bottom: 10px; /* Add margin-bottom */
-    font-weight: bold; /* Bold text */
-    font-style: italic; /* Italic text */
+  text-align: center;
+  font-size: 12px;
+  color: #999;
+  font-weight: bold;
+  font-style: italic;
+  margin-top: 4px;  /* Reduce the gap between options and this label */
+  margin-bottom: 4px; /* Reduce the gap below this label */
+  line-height: 1.4;
 }
 
+#items {
+  list-style-type: none;
+  padding: 0;
+  margin: 6px 0 6px 0; /* tighter spacing between labels and list */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
 #lives {
-    padding-top: 10px; /* Add more space above the Lives counter if needed */
+    padding-top: 0px; /* Add more space above the Lives counter if needed */
+    margin-top: 0; 
 }
 
 .result-message {
     margin-bottom: 10px; /* Adjust the value as needed */
 }
-
 
 .hidden {
     display: none;
@@ -202,7 +215,6 @@ li {
     margin-right: 5px;
 }
 
-
 .order-item {
     padding: 5px 10px;
     background-color: #f0f0f0;
@@ -212,8 +224,6 @@ li {
 .sortable-ghost {
     opacity: 0.5;
 }
-
-
 
 /* Modal */
 .modal {
@@ -235,8 +245,6 @@ li {
     justify-content: center;
     align-items: center;
 }
-
-
 
 /* Modal Content */
 .modal-content {
@@ -356,24 +364,41 @@ li {
 }
 
 /* Make all items uniform */
-.order-item, .order-number {
-    min-width: 90px;       /* Equal width */
-    height: 45px;          /* Equal height */
+.order-item {
     display: flex;
     align-items: center;
     justify-content: center;
+    min-width: 80px;
+    max-width: 100px;
+    height: 45px;
+    padding: 5px;
+    margin: 0 4px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    text-align: center;
+
+    /* KEY additions to fix long word overflow */
+    white-space: normal;
+    word-break: break-word;      /* ← This breaks long single words */
+    overflow-wrap: break-word;
+    
     font-weight: bold;
     font-size: 14px;
-    border-radius: 5px;
-    padding: 5px;
-    white-space: nowrap;
-    box-sizing: border-box;
 }
 
-/* Optional for better alignment of the number */
 .order-number {
-    background-color: #eee;
-    border: 1px solid #ccc;
+    margin-right: 10px;
+    font-weight: bold;
+    font-size: 14px;
+    color: #333;
+    background: none;
+    border: none;
+    padding: 0;
+    display: flex;
+    align-items: center; /* vertically center with guess boxes */
+    justify-content: center;
+    height: 45px; /* match height of .order-item for alignment */
+    line-height: 1;
 }
 
 /* Coloring for correctness */
