@@ -2,7 +2,6 @@ const questionElement = document.getElementById('question');
 const itemsElement = document.getElementById('items');
 const resultElement = document.getElementById('result');
 	resultElement.classList.add('result-message');
-const livesCountElement = document.getElementById('lives-count');
 const checkButton = document.getElementById('check');
 const highestLabel = document.getElementById('highest');
 const lowestLabel = document.getElementById('lowest');
@@ -19,6 +18,10 @@ let sortableInstance = null;
 let modalPlayAgainClicked = false
 let usedQuestionIndices = [];
 
+function updateHearts() {
+  const livesHearts = document.getElementById('lives-hearts');
+  livesHearts.innerHTML = '❤️'.repeat(livesRemaining) + '&nbsp;'.repeat(4 - livesRemaining);
+}
 
 const streakCountElement = document.getElementById('streak-count');
 const streakHighScoreElement = document.getElementById('streak-high-score');
@@ -345,7 +348,7 @@ const questions = [
   lowest: 'Newest Capital',
   options: ['Athens', 'Beijing', 'London', 'Washington D.C.'],
   answer: ['Athens', 'Beijing', 'London', 'Washington D.C.'],
-  metrics: ['c. 1400 BCE', '1045 BCE', '43 CE', '1790 CE']
+  metrics: ['c. 1400 BC', '1045 BC', '43 AD', '1790 AD']
 },
 {
   question: 'Rank these capital cities by distance from the equator from closest to farthest:',
@@ -354,7 +357,64 @@ const questions = [
   options: ['Singapore', 'Kampala', 'Canberra', 'Helsinki'],
   answer: ['Kampala', 'Singapore', 'Canberra', 'Helsinki'],
   metrics: ['0.3°N', '1.3°N', '35.3°S', '60.2°N']
+},
+{
+  question: 'Rank these capital cities by elevation from highest to lowest:',
+  highest: 'Highest Elevation',
+  lowest: 'Lowest Elevation',
+  options: ['La Paz', 'Quito', 'Thimphu', 'Kampala'],
+  answer: ['La Paz', 'Quito', 'Thimphu', 'Kampala'],
+  metrics: ['3,640m', '2,850m', '2,648m', '1,189m']
+},
+{
+  question: 'Rank these capital cities by average annual rainfall from most to least:',
+  highest: 'Most Rainfall',
+  lowest: 'Least Rainfall',
+  options: ['Monrovia', 'Singapore', 'Wellington', 'Madrid'],
+  answer: ['Monrovia', 'Singapore', 'Wellington', 'Madrid'],
+  metrics: ['5,100mm', '2,340mm', '1,200mm', '436mm']
+},
+{
+  question: 'Rank these capital cities by area from largest to smallest:',
+  highest: 'Largest Area',
+  lowest: 'Smallest Area',
+  options: ['Brasília', 'Beijing', 'Tokyo', 'Paris'],
+  answer: ['Beijing', 'Brasília', 'Tokyo', 'Paris'],
+  metrics: ['16,410 sq km', '5,802 sq km', '2,194 sq km', '105 sq km']
+},
+{
+  question: 'Rank these capital cities by GDP (PPP) from highest to lowest:',
+  highest: 'Highest GDP (PPP)',
+  lowest: 'Lowest GDP (PPP)',
+  options: ['Seoul', 'Buenos Aires', 'Ankara', 'Nairobi'],
+  answer: ['Seoul', 'Buenos Aires', 'Ankara', 'Nairobi'],
+  metrics: ['$926B', '$490B', '$303B', '$110B']
+},
+{
+  question: 'Rank these capital cities by average number of annual sunny days:',
+  highest: 'Most Sunny Days',
+  lowest: 'Fewest Sunny Days',
+  options: ['Cairo', 'Reykjavik', 'Madrid', 'Mexico City'],
+  answer: ['Cairo', 'Madrid', 'Mexico City', 'Reykjavik'],
+  metrics: ['3,700', '2,800', '2,400', '1,300']
+},
+{
+  question: 'Rank these capital cities by number of UNESCO World Heritage Sites within the city:',
+  highest: 'Most UNESCO Sites',
+  lowest: 'Fewest UNESCO Sites',
+  options: ['Rome', 'Istanbul', 'Kyiv', 'Mexico City'],
+  answer: ['Rome', 'Istanbul', 'Mexico City', 'Kyiv'],
+  metrics: ['4', '3', '2', '1']
+},
+{
+  question: 'Rank these capital cities by average internet speed (2023) from fastest to slowest:',
+  highest: 'Fastest Speed',
+  lowest: 'Slowest Speed',
+  options: ['Oslo', 'Abu Dhabi', 'Bangkok', 'Bogotá'],
+  answer: ['Oslo', 'Bangkok', 'Abu Dhabi', 'Bogotá'],
+  metrics: ['142 Mbps', '136 Mbps', '124 Mbps', '66 Mbps']
 }
+
 ];
 
 function displayQuestion() {
@@ -391,7 +451,7 @@ function displayQuestion() {
     });
 
     resultElement.textContent = '';
-    livesCountElement.textContent = livesRemaining;
+    updateHearts();
     checkButton.disabled = false;
 
     highestLabel.textContent = currentQuestion.highest;
@@ -444,7 +504,7 @@ function checkOrder() {
         itemsElement.classList.add('incorrect-order'); // Add class for incorrect order
         itemsElement.classList.remove('correct-order'); // Remove correct-order class
         livesRemaining--;
-        livesCountElement.textContent = livesRemaining;
+        updateHearts();
         if (livesRemaining === 0) {
             resultElement.textContent = 'Game over. You are out of lives.';
             itemsElement.querySelectorAll('li').forEach(li => {
@@ -619,7 +679,7 @@ function resetGame() {
     livesRemaining = 4;
     guessedOrders = [];
     resultElement.textContent = '';
-    livesCountElement.textContent = livesRemaining;
+    updateHearts();
     resetOrderStyles();  //This clears background/border styling
     itemsElement.classList.remove('correct-order', 'incorrect-order');  //Also remove group  classes
     displayQuestion();
