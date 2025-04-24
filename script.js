@@ -16,7 +16,9 @@ let guessedOrders = []; // Array to keep track of guessed orders
 let streak = 0;
 let highScore = localStorage.getItem('highScoreStreak') || 0;
 let sortableInstance = null;
-let modalPlayAgainClicked = false;
+let modalPlayAgainClicked = false
+let usedQuestionIndices = [];
+
 
 const streakCountElement = document.getElementById('streak-count');
 const streakHighScoreElement = document.getElementById('streak-high-score');
@@ -61,9 +63,9 @@ const questions = [
   question: 'Rank these countries by number of time zones (including overseas territories):',
   highest: 'Most Time Zones',
   lowest: 'Fewest Time Zones',
-  options: ['France', 'United States', 'Russia', 'United Kingdom'],
-  answer: ['France', 'Russia', 'United States', 'United Kingdom'],
-  metrics: ['12 zones', '11 zones', '9 zones', '9 zones']
+  options: ['France', 'United States', 'Russia', 'Canada'],
+  answer: ['France', 'Russia', 'United States', 'Canada'],
+  metrics: ['12 zones', '11 zones', '9 zones', '6 zones']
 },
 {
   question: 'Rank these capital cities by population from most to least:',
@@ -143,7 +145,7 @@ const questions = [
   lowest: 'Fewest Lakes',
   options: ['Canada', 'Russia', 'India', 'Australia'],
   answer: ['Canada', 'Russia', 'Australia', 'India'],
-  metrics: ['879,800+', '200,000+', '14,500+', '3,000+']
+  metrics: ['879K+', '200K+', '14.5K+', '3K+']
 },
 {
   question: 'Rank these countries by population density from highest to lowest:',
@@ -168,23 +170,217 @@ const questions = [
   options: ['Indonesia', 'Japan', 'Chile', 'Philippines'],
   answer: ['Indonesia', 'Japan', 'Philippines', 'Chile'],
   metrics: ['127 active', '110 active', '53 active', '40 active']
+},
+{
+  question: 'Rank these countries by average elevation from highest to lowest:',
+  highest: 'Highest Average Elevation',
+  lowest: 'Lowest Average Elevation',
+  options: ['Bhutan', 'Nepal', 'Afghanistan', 'Switzerland'],
+  answer: ['Bhutan', 'Nepal', 'Afghanistan', 'Switzerland'],
+  metrics: ['3,280m', '3,265m', '1,884m', '1,654m']
+},
+{
+  question: 'Rank these countries by total railroad mileage from most to least:',
+  highest: 'Most Railroad Mileage',
+  lowest: 'Least Railroad Mileage',
+  options: ['United States', 'China', 'Russia', 'India'],
+  answer: ['United States', 'China', 'Russia', 'India'],
+  metrics: ['148,500 km', '110,000 km', '87,000 km', '67,000 km']
+},
+{
+  question: 'Rank these countries by paved road length from most to least:',
+  highest: 'Most Paved Roads',
+  lowest: 'Least Paved Roads',
+  options: ['United States', 'India', 'China', 'Brazil'],
+  answer: ['United States', 'India', 'China', 'Brazil'],
+  metrics: ['4.3M km', '2.7M km', '2.5M km', '1.6M km']
+},
+{
+  question: 'Rank these countries by tallest peak from highest to lowest:',
+  highest: 'Tallest Peak',
+  lowest: 'Shortest Peak',
+  options: ['Nepal', 'Pakistan', 'Argentina', 'Tanzania'],
+  answer: ['Nepal', 'Pakistan', 'Argentina', 'Tanzania'],
+  metrics: ['Everest: 8,848m', 'K2: 8,611m', 'Aconcagua: 6,961m', 'Kilimanjaro: 5,895m']
+},
+{
+  question: 'Rank these Asian rivers by length from longest to shortest:',
+  highest: 'Longest River',
+  lowest: 'Shortest River',
+  options: ['Yangtze', 'Yellow', 'Ganges', 'Mekong'],
+  answer: ['Yangtze', 'Yellow', 'Ganges', 'Mekong'],
+  metrics: ['6,300 km', '5,464 km', '2,525 km', '2,200 km']
+},
+{
+  question: 'Rank these rivers in Asia by length from longest to shortest:',
+  highest: 'Longest River',
+  lowest: 'Shortest River',
+  options: ['Yangtze', 'Yellow', 'Indus', 'Amu Darya'],
+  answer: ['Yangtze', 'Yellow', 'Indus', 'Amu Darya'],
+  metrics: ['6,300 km', '5,464 km', '3,180 km', '2,540 km']
+},
+{
+  question: 'Rank these North American rivers by length from longest to shortest:',
+  highest: 'Longest River',
+  lowest: 'Shortest River',
+  options: ['Missouri', 'Mississippi', 'Yukon', 'Colorado'],
+  answer: ['Missouri', 'Mississippi', 'Yukon', 'Colorado'],
+  metrics: ['3,767 km', '3,730 km', '3,185 km', '2,330 km']
+},
+{
+  question: 'Rank these European rivers by length from longest to shortest:',
+  highest: 'Longest River',
+  lowest: 'Shortest River',
+  options: ['Volga', 'Danube', 'Ural', 'Dnieper'],
+  answer: ['Volga', 'Danube', 'Ural', 'Dnieper'],
+  metrics: ['3,530 km', '2,860 km', '2,428 km', '2,290 km']
+},
+{
+  question: 'Rank these countries by percentage of residents who are non-citizens from highest to lowest:',
+  highest: 'Most Non-Citizens',
+  lowest: 'Fewest Non-Citizens',
+  options: ['United Arab Emirates', 'Qatar', 'Switzerland', 'Germany'],
+  answer: ['United Arab Emirates', 'Qatar', 'Switzerland', 'Germany'],
+  metrics: ['88%', '75%', '25%', '12%']
+},
+{
+  question: 'Rank these countries by estimated lithium reserves from most to least:',
+  highest: 'Most Lithium',
+  lowest: 'Least Lithium',
+  options: ['Chile', 'Australia', 'Argentina', 'China'],
+  answer: ['Chile', 'Australia', 'Argentina', 'China'],
+  metrics: ['9.3M tons', '6.2M tons', '2.7M tons', '2.0M tons']
+},
+{
+  question: 'Rank these regions by number of major mountain ranges from most to least:',
+  highest: 'Most Mountain Ranges',
+  lowest: 'Least Mountain Ranges',
+  options: ['Asia', 'South America', 'Europe', 'Africa'],
+  answer: ['Asia', 'South America', 'Europe', 'Africa'],
+  metrics: ['~15 ranges', '~10 ranges', '~8 ranges', '~6 ranges']
+},
+{
+  question: 'Rank these US states by vertical relief (difference in elevation) from greatest to smallest:',
+  highest: 'Greatest Elevation Difference',
+  lowest: 'Smallest Elevation Difference',
+  options: ['Alaska', 'California', 'Colorado', 'Florida'],
+  answer: ['Alaska', 'California', 'Colorado', 'Florida'],
+  metrics: ['6,000m', '4,300m', '2,900m', '105m']
+},
+{
+  question: 'Rank these US states by average annual rainfall from most to least:',
+  highest: 'Most Rainfall',
+  lowest: 'Least Rainfall',
+  options: ['Hawaii', 'Louisiana', 'Washington', 'Nevada'],
+  answer: ['Hawaii', 'Louisiana', 'Washington', 'Nevada'],
+  metrics: ['63.7 in', '60.1 in', '38.4 in', '9.5 in']
+},
+{
+  question: 'Rank these countries by average annual rainfall from most to least:',
+  highest: 'Most Rainfall',
+  lowest: 'Least Rainfall',
+  options: ['Colombia', 'Malaysia', 'Indonesia', 'Egypt'],
+  answer: ['Colombia', 'Malaysia', 'Indonesia', 'Egypt'],
+  metrics: ['3,240 mm', '2,875 mm', '2,702 mm', '51 mm']
+},
+{
+  question: 'Rank these US states by average annual temperature from warmest to coolest:',
+  highest: 'Warmest',
+  lowest: 'Coolest',
+  options: ['Florida', 'Texas', 'California', 'Alaska'],
+  answer: ['Florida', 'Texas', 'California', 'Alaska'],
+  metrics: ['71°F', '65°F', '59°F', '26°F']
+},
+{
+  question: 'Rank these US states by average annual snowfall from most to least:',
+  highest: 'Most Snowfall',
+  lowest: 'Least Snowfall',
+  options: ['Vermont', 'New York', 'Colorado', 'Texas'],
+  answer: ['Vermont', 'New York', 'Colorado', 'Texas'],
+  metrics: ['89.2 in', '62.7 in', '60.3 in', '1.1 in']
+},
+{
+  question: 'Rank these countries by average annual sunshine (days) from most to least:',
+  highest: 'Most Sunny Days',
+  lowest: 'Least Sunny Days',
+  options: ['Egypt', 'Australia', 'Spain', 'Germany'],
+  answer: ['Egypt', 'Australia', 'Spain', 'Germany'],
+  metrics: ['365 days', '280 days', '250 days', '150 days']
+},
+{
+  question: 'Rank these countries by average annual air pollution (PM2.5) from most to least:',
+  highest: 'Most Polluted',
+  lowest: 'Least Polluted',
+  options: ['India', 'Bangladesh', 'Pakistan', 'United States'],
+  answer: ['Bangladesh', 'Pakistan', 'India', 'United States'],
+  metrics: ['77.1 µg/m³', '59.0 µg/m³', '58.1 µg/m³', '8.0 µg/m³']
+},
+{
+  question: 'Rank these countries by the number of official languages from most to least:',
+  highest: 'Most Official Languages',
+  lowest: 'Fewest Official Languages',
+  options: ['South Africa', 'Switzerland', 'India', 'Canada'],
+  answer: ['India', 'South Africa', 'Switzerland', 'Canada'],
+  metrics: ['22', '11', '4', '2']
+},
+{
+  question: 'Rank these lakes by surface area from largest to smallest:',
+  highest: 'Largest Lake',
+  lowest: 'Smallest Lake',
+  options: ['Caspian Sea', 'Lake Superior', 'Lake Victoria', 'Lake Huron'],
+  answer: ['Caspian Sea', 'Lake Superior', 'Lake Huron', 'Lake Victoria'],
+  metrics: ['371,000 km²', '82,100 km²', '59,600 km²', '57,800 km²']
+},
+{
+  question: 'Rank these countries by renewable energy production from highest to lowest:',
+  highest: 'Most Renewable Energy',
+  lowest: 'Least Renewable Energy',
+  options: ['China', 'United States', 'Brazil', 'Germany'],
+  answer: ['China', 'United States', 'Brazil', 'Germany'],
+  metrics: ['2,480 TWh', '1,300 TWh', '600 TWh', '230 TWh']
+},
+{
+  question: 'Rank these capital cities by founding date from oldest to newest:',
+  highest: 'Oldest Capital',
+  lowest: 'Newest Capital',
+  options: ['Athens', 'Beijing', 'London', 'Washington D.C.'],
+  answer: ['Athens', 'Beijing', 'London', 'Washington D.C.'],
+  metrics: ['c. 1400 BCE', '1045 BCE', '43 CE', '1790 CE']
+},
+{
+  question: 'Rank these capital cities by distance from the equator from closest to farthest:',
+  highest: 'Closest to Equator',
+  lowest: 'Farthest from Equator',
+  options: ['Singapore', 'Kampala', 'Canberra', 'Helsinki'],
+  answer: ['Kampala', 'Singapore', 'Canberra', 'Helsinki'],
+  metrics: ['0.3°N', '1.3°N', '35.3°S', '60.2°N']
 }
 ];
 
 function displayQuestion() {
-    const index = Math.floor(Math.random() * questions.length);
+    // If all questions have been used, reset
+    if (usedQuestionIndices.length === questions.length) {
+        usedQuestionIndices = [];
+    }
+
+    let index;
+    do {
+        index = Math.floor(Math.random() * questions.length);
+    } while (usedQuestionIndices.includes(index));
+
+    usedQuestionIndices.push(index);
+
     currentQuestion = questions[index];
-    currentAnswer = [...currentQuestion.options]; // Copy the options array
-    currentAnswer.sort(() => Math.random() - 0.5); // Shuffle the answer options
+    currentAnswer = [...currentQuestion.options];
+    currentAnswer.sort(() => Math.random() - 0.5);
 
     questionElement.textContent = currentQuestion.question;
-    itemsElement.innerHTML = ''; // Clear previous items
+    itemsElement.innerHTML = '';
 
     sortableInstance = Sortable.create(itemsElement, {
-    animation: 150,
-    ghostClass: 'sortable-ghost'
-});
-
+        animation: 150,
+        ghostClass: 'sortable-ghost'
+    });
 
     currentAnswer.forEach(option => {
         const li = document.createElement('li');
@@ -198,25 +394,8 @@ function displayQuestion() {
     livesCountElement.textContent = livesRemaining;
     checkButton.disabled = false;
 
-    // Set dynamic labels
     highestLabel.textContent = currentQuestion.highest;
     lowestLabel.textContent = currentQuestion.lowest;
-
-    
-
-    if (droppedItem && targetItem) {
-        const droppedIndex = Array.from(itemsElement.children).indexOf(droppedItem);
-        const targetIndex = Array.from(itemsElement.children).indexOf(targetItem);
-
-        if (droppedIndex > targetIndex) {
-            itemsElement.insertBefore(droppedItem, targetItem);
-        } else {
-            itemsElement.insertBefore(droppedItem, targetItem.nextSibling);
-        }
-
-        checkButton.disabled = false;
-        resetOrderStyles(); // Reset styles when items are rearranged
-    }
 }
 
 function checkOrder() {
