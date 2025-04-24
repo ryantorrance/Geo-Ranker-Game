@@ -425,6 +425,8 @@ function checkOrder() {
     	sortableInstance.option("disabled", true);
 	}
         showResultsModal(true);
+	checkButton.disabled = true;
+	checkButton.classList.add('hidden');
 	streak++;
 	streakCountElement.textContent = streak;
 
@@ -453,6 +455,9 @@ function checkOrder() {
     	    sortableInstance.option("disabled", true);
 	}
             showResultsModal(false);
+	    checkButton.disabled = true;
+	    checkButton.classList.add('hidden');
+
 	    streak = 0;
 	    streakCountElement.textContent = streak;
         }
@@ -476,6 +481,9 @@ function showResultsModal(isWin) {
     const modalContent = document.getElementById('modalContent');
     modalContent.innerHTML = ''; // Clear previous content
     modal.classList.add('show');
+    modal.scrollTop = 0; // ensures internal scroll starts at top
+    window.scrollTo({ top: 0, behavior: 'smooth' }); // scrolls the whole page to the top
+
 
     if (isWin) {
         const winMessage = document.createElement('h2');
@@ -578,24 +586,19 @@ function showResultsModal(isWin) {
     modalPlayAgainClicked = false;
 
 
-    // Close the modal when clicking on the close button
     const closeButton = modal.querySelector('.close');
     closeButton.onclick = function () {
-     modal.classList.remove('show');
-    if (!modalPlayAgainClicked) {
-        playAgainScreenButton.classList.remove('hidden');
-    }
+  modal.classList.remove('show');
+  checkButton.classList.add('hidden'); // Hide Check Order
+  playAgainScreenButton.classList.remove('hidden'); // Show Play Again
     };
 
-
-    // Close the modal when clicking outside of the modal content
     window.onclick = function (event) {
-    if (event.target === modal) {
-        modal.classList.remove('show');
-        if (!modalPlayAgainClicked) {
-            playAgainScreenButton.classList.remove('hidden');
-        }
-    }
+  if (event.target === modal) {
+    modal.classList.remove('show');
+    checkButton.classList.add('hidden'); // Hide Check Order
+    playAgainScreenButton.classList.remove('hidden'); // Show Play Again
+  }
     };
 
 
@@ -622,12 +625,11 @@ function resetGame() {
     displayQuestion();
     if (sortableInstance) {
     sortableInstance.option("disabled", false);
+	}
+	checkButton.classList.remove('hidden');
+	checkButton.disabled = false;
+	playAgainScreenButton.classList.add('hidden');
 }
-
-}
-
-
-
 
 document.getElementById('check').addEventListener('click', checkOrder);
 
@@ -638,3 +640,4 @@ playAgainScreenButton.addEventListener('click', () => {
 
 
 displayQuestion();
+
