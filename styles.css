@@ -14,7 +14,6 @@ body {
 }
 
 
-
 /* Style the container to stand out with a white background */
 .container {
     max-width: 600px;
@@ -27,7 +26,6 @@ body {
     /* Ensure it's centered and respects full viewport width if needed */
     width: 90vw;
 }
-
 
 
 /*to adjust for smaller screens and to prevent the game from being clipped */
@@ -260,7 +258,6 @@ li {
     box-sizing: border-box;
 }
 
-
 #modal-body ul {
     list-style-type: none;
     padding: 0;
@@ -309,10 +306,6 @@ li {
 
 .play-again-button:hover {
     background-color: #218838;
-}
-
-.hidden {
-    display: none;
 }
 
 #streak {
@@ -411,4 +404,5 @@ li {
     background-color: #f8d7da;
     border: 1px solid #dc3545;
 }
+
 
