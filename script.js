@@ -430,6 +430,254 @@ const questions = [
   options: ['Pacific Plate', 'Eurasian Plate', 'African Plate', 'Nazca Plate'],
   answer: ['Pacific Plate', 'Eurasian Plate', 'African Plate', 'Nazca Plate'],
   metrics: ['103M sq km', '67M sq km', '61M sq km', '15M sq km']
+},
+{
+  question: 'Rank these mountain ranges by age, from most recent to oldest:',
+  highest: 'Most Recently Formed',
+  lowest: 'Oldest Formed',
+  options: ['Himalayas', 'Andes', 'Alps', 'Appalachians'],
+  answer: ['Himalayas', 'Andes', 'Alps', 'Appalachians'],
+  metrics: ['~50M years', '~65M years', '~100M years', '~480M years']
+},
+{
+  question: 'Rank these countries by percentage of land designated as protected areas from most to least:',
+  highest: 'Most Protected Land',
+  lowest: 'Least Protected Land',
+  options: ['Venezuela', 'Germany', 'Australia', 'United States'],
+  answer: ['Venezuela', 'Germany', 'Australia', 'United States'],
+  metrics: ['54%', '38%', '19%', '13%']
+},
+{
+  question: 'Rank these countries by number of national parks from most to least:',
+  highest: 'Most National Parks',
+  lowest: 'Least National Parks',
+  options: ['Australia', 'Brazil', 'Canada', 'Japan'],
+  answer: ['Australia', 'Brazil', 'Canada', 'Japan'],
+  metrics: ['685', '334', '48', '34']
+},
+{
+  question: 'Rank these countries by biodiversity (number of known species) from most to least:',
+  highest: 'Most Biodiverse',
+  lowest: 'Least Biodiverse',
+  options: ['Brazil', 'Indonesia', 'Mexico', 'India'],
+  answer: ['Brazil', 'Indonesia', 'Mexico', 'India'],
+  metrics: ['~56,000', '~51,000', '~49,000', '~47,000']
+},
+{
+  question: 'Rank these maritime routes by annual cargo volume from highest to lowest:',
+  highest: 'Most Cargo Volume',
+  lowest: 'Least Cargo Volume',
+  options: ['Strait of Malacca', 'Suez Canal', 'Panama Canal', 'Bosporus Strait'],
+  answer: ['Strait of Malacca', 'Suez Canal', 'Panama Canal', 'Bosporus Strait'],
+  metrics: ['>80,000 ships/year', '~25,000', '~14,000', '~9,000']
+},
+{
+  question: 'Rank these ports by container throughput (TEUs) from highest to lowest:',
+  highest: 'Busiest Port',
+  lowest: 'Least Busy Port',
+  options: ['Shanghai', 'Singapore', 'Rotterdam', 'Los Angeles'],
+  answer: ['Shanghai', 'Singapore', 'Rotterdam', 'Los Angeles'],
+  metrics: ['47M TEUs', '37M', '15M', '9M']
+},
+{
+  question: 'Rank these countries by total value of merchandise exports (2023) from most to least:',
+  highest: 'Largest Exporter',
+  lowest: 'Smallest Exporter',
+  options: ['China', 'United States', 'Germany', 'Japan'],
+  answer: ['China', 'United States', 'Germany', 'Japan'],
+  metrics: ['$3.6T', '$2.1T', '$1.7T', '$757B']
+},
+{
+  question: 'Rank these countries by wheat exports from most to least:',
+  highest: 'Most Wheat Exports',
+  lowest: 'Least Wheat Exports',
+  options: ['Russia', 'United States', 'Canada', 'France'],
+  answer: ['Russia', 'United States', 'Canada', 'France'],
+  metrics: ['45M tons', '26M', '25M', '19M']
+},
+{
+  question: 'Rank these countries by value of electronics exports from most to least:',
+  highest: 'Most Electronics Exports',
+  lowest: 'Least Electronics Exports',
+  options: ['China', 'South Korea', 'Germany', 'Taiwan'],
+  answer: ['China', 'South Korea', 'Taiwan', 'Germany'],
+  metrics: ['$800B', '$240B', '$200B', '$160B']
+},
+{
+  question: 'Rank these countries by urban population percentage from highest to lowest:',
+  highest: 'Most Urbanized',
+  lowest: 'Least Urbanized',
+  options: ['Japan', 'Brazil', 'France', 'India'],
+  answer: ['Japan', 'Brazil', 'France', 'India'],
+  metrics: ['92%', '87%', '81%', '36%']
+},
+{
+  question: 'Rank these countries by population density from highest to lowest:',
+  highest: 'Densest',
+  lowest: 'Least Dense',
+  options: ['Bangladesh', 'Netherlands', 'India', 'United States'],
+  answer: ['Bangladesh', 'Netherlands', 'India', 'United States'],
+  metrics: ['1,265/km²', '523/km²', '464/km²', '36/km²']
+},
+{
+  question: 'Rank these countries by median age from highest to lowest:',
+  highest: 'Oldest Median Age',
+  lowest: 'Youngest Median Age',
+  options: ['Germany', 'Canada', 'Brazil', 'Nigeria'],
+  answer: ['Germany', 'Canada', 'Brazil', 'Nigeria'],
+  metrics: ['47', '41', '33', '18']
+},
+{
+  question: 'Rank these countries by life expectancy from highest to lowest:',
+  highest: 'Longest Life Expectancy',
+  lowest: 'Shortest Life Expectancy',
+  options: ['Japan', 'Italy', 'Mexico', 'South Africa'],
+  answer: ['Japan', 'Italy', 'Mexico', 'South Africa'],
+  metrics: ['85 years', '84 years', '75 years', '65 years']
+},
+{
+  question: 'Rank these languages by number of native speakers from most to least:',
+  highest: 'Most Native Speakers',
+  lowest: 'Fewest Native Speakers',
+  options: ['Mandarin', 'Spanish', 'Hindi', 'Russian'],
+  answer: ['Mandarin', 'Spanish', 'Hindi', 'Russian'],
+  metrics: ['920M', '485M', '344M', '154M']
+},
+{
+  question: 'Rank these countries by Muslim population from highest to lowest:',
+  highest: 'Most Muslims',
+  lowest: 'Fewest Muslims',
+  options: ['Indonesia', 'Pakistan', 'India', 'Bangladesh'],
+  answer: ['Indonesia', 'Pakistan', 'India', 'Bangladesh'],
+  metrics: ['231M', '212M', '200M', '153M']
+},
+{
+  question: 'Rank these cities by metro area population from largest to smallest:',
+  highest: 'Largest Metro Area',
+  lowest: 'Smallest Metro Area',
+  options: ['Tokyo', 'Delhi', 'New York City', 'London'],
+  answer: ['Tokyo', 'Delhi', 'New York City', 'London'],
+  metrics: ['37M', '32M', '20M', '14M']
+},
+{
+  question: 'Rank these countries by GDP (nominal) from highest to lowest:',
+  highest: 'Highest GDP',
+  lowest: 'Lowest GDP',
+  options: ['United States', 'Germany', 'Japan', 'United Kingdom'],
+  answer: ['United States', 'Japan', 'Germany', 'United Kingdom'],
+  metrics: ['$26.9T', '$4.4T', '$4.3T', '$3.1T']
+},
+{
+  question: 'Rank these countries by average income tax rate for the national average income, from highest to lowest:',
+  highest: 'Highest Average Tax Rate',
+  lowest: 'Lowest Average Tax Rate',
+  options: ['Belgium', 'Germany', 'United States', 'Mexico'],
+  answer: ['Belgium', 'Germany', 'United States', 'Mexico'],
+  metrics: ['42%', '39%', '25%', '10%']
+},
+{
+  question: 'Rank these countries by average rent for a 1-bedroom apartment (city center):',
+  highest: 'Most Expensive',
+  lowest: 'Least Expensive',
+  options: ['United States', 'Japan', 'Portugal', 'Philippines'],
+  answer: ['United States', 'Japan', 'Portugal', 'Philippines'],
+  metrics: ['$1,650', '$1,200', '$900', '$500']
+},
+{
+  question: 'Rank these cities by average rent for a 1-bedroom apartment (city center):',
+  highest: 'Most Expensive',
+  lowest: 'Least Expensive',
+  options: ['San Francisco', 'Toronto', 'Berlin', 'Buenos Aires'],
+  answer: ['San Francisco', 'Toronto', 'Berlin', 'Buenos Aires'],
+  metrics: ['$3,200', '$2,000', '$1,500', '$430']
+},
+{
+  question: 'Rank these countries by the number of official languages from most to least:',
+  highest: 'Most Official Languages',
+  lowest: 'Fewest Official Languages',
+  options: ['South Africa', 'Switzerland', 'India', 'Canada'],
+  answer: ['India', 'South Africa', 'Switzerland', 'Canada'],
+  metrics: ['22', '11', '4', '2']
+},
+{
+  question: 'Rank these capital cities by GDP from highest to lowest:',
+  highest: 'Highest GDP (PPP)',
+  lowest: 'Lowest GDP (PPP)',
+  options: ['Seoul', 'Buenos Aires', 'Ankara', 'Nairobi'],
+  answer: ['Seoul', 'Buenos Aires', 'Ankara', 'Nairobi'],
+  metrics: ['$926B', '$490B', '$303B', '$110B']
+},
+{
+  question: 'Rank these countries by number of international airports from most to least:',
+  highest: 'Most International Airports',
+  lowest: 'Fewest International Airports',
+  options: ['United States', 'Russia', 'Germany', 'Japan'],
+  answer: ['United States', 'Russia', 'Germany', 'Japan'],
+  metrics: ['130+', '70+', '40+', '30+']
+},
+{
+  question: 'Rank these airports by annual passenger traffic from most to least:',
+  highest: 'Most Passengers',
+  lowest: 'Fewest Passengers',
+  options: ['Hartsfield–Jackson Atlanta (ATL)', 'Dubai International (DXB)', 'London Heathrow (LHR)', 'Tokyo Haneda (HND)'],
+  answer: ['Hartsfield–Jackson Atlanta (ATL)', 'Dubai International (DXB)', 'Tokyo Haneda (HND)', 'London Heathrow (LHR)'],
+  metrics: ['93M', '86M', '83M', '80M']
+},
+{
+  question: 'Rank these airports by annual cargo traffic, in metric tons, from most to least:',
+  highest: 'Most Cargo Handled',
+  lowest: 'Least Cargo Handled',
+  options: ['Hong Kong (HKG)', 'Memphis (MEM)', 'Shanghai Pudong (PVG)', 'Anchorage (ANC)'],
+  answer: ['Hong Kong (HKG)', 'Memphis (MEM)', 'Shanghai Pudong (PVG)', 'Anchorage (ANC)'],
+  metrics: ['4.2M metric tons', '4.1M metric tons', '3.8M metric tons', '3.6M metric tons']
+},
+{
+  question: 'Rank these airlines by number of countries they fly to from most to least:',
+  highest: 'Most Countries Served',
+  lowest: 'Fewest Countries Served',
+  options: ['Turkish Airlines', 'Air France', 'Emirates', 'Qatar Airways'],
+  answer: ['Turkish Airlines', 'Air France', 'Emirates', 'Qatar Airways'],
+  metrics: ['129 countries', '93 countries', '84 countries', '82 countries']
+},
+{
+  question: 'Rank these airlines by fleet size (number of aircraft) from largest to smallest:',
+  highest: 'Largest Fleet',
+  lowest: 'Smallest Fleet',
+  options: ['American Airlines', 'Delta Air Lines', 'United Airlines', 'Lufthansa'],
+  answer: ['American Airlines', 'Delta Air Lines', 'United Airlines', 'Lufthansa'],
+  metrics: ['950+ planes', '900+ planes', '870+ planes', '350+ planes']
+},
+{
+  question: 'Rank these flights by route distance from longest to shortest:',
+  highest: 'Longest Route',
+  lowest: 'Shortest Route',
+  options: ['Singapore to New York', 'Auckland to Doha', 'Perth to London', 'Dallas to Sydney'],
+  answer: ['Singapore to New York', 'Auckland to Doha', 'Perth to London', 'Dallas to Sydney'],
+  metrics: ['15,300 km', '14,500 km', '14,000 km', '13,800 km']
+},
+{
+  question: 'Rank these airlines by average aircraft age from oldest to newest:',
+  highest: 'Oldest Fleet',
+  lowest: 'Newest Fleet',
+  options: ['Iran Air', 'Delta Air Lines', 'Singapore Airlines', 'Qatar Airways'],
+  answer: ['Iran Air', 'Delta Air Lines', 'Singapore Airlines', 'Qatar Airways'],
+  metrics: ['23 years', '15 years', '7 years', '5 years']
+},
+{
+  question: 'Rank these airlines by annual passengers carried from most to least:',
+  highest: 'Most Passengers',
+  lowest: 'Fewest Passengers',
+  options: ['Southwest Airlines', 'American Airlines', 'Ryanair', 'Emirates'],
+  answer: ['American Airlines', 'Southwest Airlines', 'Ryanair', 'Emirates'],
+  metrics: ['200M+', '180M+', '160M+', '60M+']
+},
+{
+  question: 'Rank these international air routes by number of flights per year from most to least:',
+  highest: 'Most Flights',
+  lowest: 'Fewest Flights',
+  options: ['Kuala Lumpur–Singapore', 'London–Dublin', 'New York–London', 'Hong Kong–Taipei'],
+  answer: ['Kuala Lumpur–Singapore', 'Hong Kong–Taipei', 'London–Dublin', 'New York–London'],
+  metrics: ['30,000+', '28,000+', '24,000+', '21,000+']
 }
 
 ];
