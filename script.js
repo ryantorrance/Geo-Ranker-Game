@@ -86,14 +86,7 @@ const questions = [
   answer: ['Antarctic', 'Sahara', 'Arabian', 'Gobi'],
   metrics: ['14M sq km', '9.2M sq km', '2.3M sq km', '1.3M sq km']
 },
-{
-  question: 'Rank these countries by GDP (nominal) from highest to lowest:',
-  highest: 'Highest GDP',
-  lowest: 'Lowest GDP',
-  options: ['United States', 'Germany', 'Japan', 'United Kingdom'],
-  answer: ['United States', 'Japan', 'Germany', 'United Kingdom'],
-  metrics: ['$26.9T', '$4.4T', '$4.3T', '$3.1T']
-},
+
 {
   question: 'Rank these European countries by forest cover percentage from highest to lowest:',
   highest: 'Most Forested',
@@ -215,14 +208,6 @@ const questions = [
   metrics: ['6,300 km', '5,464 km', '2,525 km', '2,200 km']
 },
 {
-  question: 'Rank these rivers in Asia by length from longest to shortest:',
-  highest: 'Longest River',
-  lowest: 'Shortest River',
-  options: ['Yangtze', 'Yellow', 'Indus', 'Amu Darya'],
-  answer: ['Yangtze', 'Yellow', 'Indus', 'Amu Darya'],
-  metrics: ['6,300 km', '5,464 km', '3,180 km', '2,540 km']
-},
-{
   question: 'Rank these North American rivers by length from longest to shortest:',
   highest: 'Longest River',
   lowest: 'Shortest River',
@@ -319,14 +304,6 @@ const questions = [
   metrics: ['77.1 µg/m³', '59.0 µg/m³', '58.1 µg/m³', '8.0 µg/m³']
 },
 {
-  question: 'Rank these countries by the number of official languages from most to least:',
-  highest: 'Most Official Languages',
-  lowest: 'Fewest Official Languages',
-  options: ['South Africa', 'Switzerland', 'India', 'Canada'],
-  answer: ['India', 'South Africa', 'Switzerland', 'Canada'],
-  metrics: ['22', '11', '4', '2']
-},
-{
   question: 'Rank these lakes by surface area from largest to smallest:',
   highest: 'Largest Lake',
   lowest: 'Smallest Lake',
@@ -383,14 +360,6 @@ const questions = [
   metrics: ['16,410 sq km', '5,802 sq km', '2,194 sq km', '105 sq km']
 },
 {
-  question: 'Rank these capital cities by GDP (PPP) from highest to lowest:',
-  highest: 'Highest GDP (PPP)',
-  lowest: 'Lowest GDP (PPP)',
-  options: ['Seoul', 'Buenos Aires', 'Ankara', 'Nairobi'],
-  answer: ['Seoul', 'Buenos Aires', 'Ankara', 'Nairobi'],
-  metrics: ['$926B', '$490B', '$303B', '$110B']
-},
-{
   question: 'Rank these capital cities by average number of annual sunny days:',
   highest: 'Most Sunny Days',
   lowest: 'Fewest Sunny Days',
@@ -407,12 +376,60 @@ const questions = [
   metrics: ['4', '3', '2', '1']
 },
 {
-  question: 'Rank these capital cities by average internet speed (2023) from fastest to slowest:',
-  highest: 'Fastest Speed',
-  lowest: 'Slowest Speed',
-  options: ['Oslo', 'Abu Dhabi', 'Bangkok', 'Bogotá'],
-  answer: ['Oslo', 'Bangkok', 'Abu Dhabi', 'Bogotá'],
-  metrics: ['142 Mbps', '136 Mbps', '124 Mbps', '66 Mbps']
+  question: 'Rank these countries by Human Development Index (HDI) from highest to lowest:',
+  highest: 'Highest HDI',
+  lowest: 'Lowest HDI',
+  options: ['Norway', 'Germany', 'Mexico', 'Nigeria'],
+  answer: ['Norway', 'Germany', 'Mexico', 'Nigeria'],
+  metrics: ['0.961', '0.942', '0.758', '0.535']
+},
+{
+  question: 'Rank these countries by total vineyard acreage:',
+  highest: 'Most Vineyard Land',
+  lowest: 'Least Vineyard Land',
+  options: ['Spain', 'France', 'Italy', 'United States'],
+  answer: ['Spain', 'France', 'Italy', 'United States'],
+  metrics: ['960K hectares', '790K hectares', '720K hectares', '420K hectares']
+},
+{
+  question: 'Rank these countries by percentage of land below sea level:',
+  highest: 'Most Below Sea Level',
+  lowest: 'Least Below Sea Level',
+  options: ['Netherlands', 'Egypt', 'United States', 'Bangladesh'],
+  answer: ['Netherlands', 'Bangladesh', 'Egypt', 'United States'],
+  metrics: ['26%', '10%', '6%', '<0.1%']
+},
+{
+  question: 'Rank these islands by land area from largest to smallest:',
+  highest: 'Largest Island',
+  lowest: 'Smallest Island',
+  options: ['Greenland', 'New Guinea', 'Borneo', 'Madagascar'],
+  answer: ['Greenland', 'New Guinea', 'Borneo', 'Madagascar'],
+  metrics: ['2.1M sq km', '785K sq km', '748K sq km', '587K sq km']
+},
+{
+  question: 'Rank these cities by latitude from farthest north to farthest south:',
+  highest: 'Farthest North',
+  lowest: 'Farthest South',
+  options: ['Oslo', 'Toronto', 'Beijing', 'Sydney'],
+  answer: ['Oslo', 'Toronto', 'Beijing', 'Sydney'],
+  metrics: ['59°N', '43°N', '39°N', '34°S']
+},
+{
+  question: 'Rank these regions by number of tectonic plate boundaries nearby:',
+  highest: 'Most Boundaries',
+  lowest: 'Fewest Boundaries',
+  options: ['Japan', 'Iceland', 'California', 'South Africa'],
+  answer: ['Japan', 'California', 'Iceland', 'South Africa'],
+  metrics: ['4 plates', '3 plates', '2 plates', '1 plate']
+},
+{
+  question: 'Rank these tectonic plates by size from largest to smallest:',
+  highest: 'Largest Plate',
+  lowest: 'Smallest Plate',
+  options: ['Pacific Plate', 'Eurasian Plate', 'African Plate', 'Nazca Plate'],
+  answer: ['Pacific Plate', 'Eurasian Plate', 'African Plate', 'Nazca Plate'],
+  metrics: ['103M sq km', '67M sq km', '61M sq km', '15M sq km']
 }
 
 ];
