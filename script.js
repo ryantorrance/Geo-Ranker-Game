@@ -360,14 +360,6 @@ const questions = [
   metrics: ['16,410 sq km', '5,802 sq km', '2,194 sq km', '105 sq km']
 },
 {
-  question: 'Rank these capital cities by average number of annual sunny days:',
-  highest: 'Most Sunny Days',
-  lowest: 'Fewest Sunny Days',
-  options: ['Cairo', 'Reykjavik', 'Madrid', 'Mexico City'],
-  answer: ['Cairo', 'Madrid', 'Mexico City', 'Reykjavik'],
-  metrics: ['3,700', '2,800', '2,400', '1,300']
-},
-{
   question: 'Rank these capital cities by number of UNESCO World Heritage Sites within the city:',
   highest: 'Most UNESCO Sites',
   lowest: 'Fewest UNESCO Sites',
