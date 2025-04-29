@@ -10,7 +10,7 @@ const playAgainScreenButton = document.getElementById('play-again-screen');
 
 let currentQuestion = null;
 let currentAnswer = null;
-let livesRemaining = 4;
+let livesRemaining = 5;
 let guessedOrders = []; // Array to keep track of guessed orders
 let streak = 0;
 let highScore = localStorage.getItem('highScoreStreak') || 0;
@@ -23,7 +23,7 @@ let lastResultWasWin = false;
 
 function updateHearts() {
   const livesHearts = document.getElementById('lives-hearts');
-  livesHearts.innerHTML = '❤️'.repeat(livesRemaining) + '&nbsp;'.repeat(4 - livesRemaining);
+  livesHearts.innerHTML = '❤️'.repeat(livesRemaining) + '&nbsp;'.repeat(5 - livesRemaining);
 }
 
 const streakCountElement = document.getElementById('streak-count');
@@ -989,8 +989,8 @@ function setupNativeShareButton(buttonId = 'native-share-button') {
     try {
       await navigator.share({
         title: 'Geo Ranker 🌎',
-        text: `I scored ${finalStreak} in Geo Ranker! Play here: https://www.georanker.com`,
-        url: 'https://www.georanker.com',
+        text: `I got a ${finalStreak} in Geo Ranker! 🌎 Try to beat me: www.georankergame.com`,
+        url: 'https://www.georankergame.com',
       });
     } catch (err) {
       console.error('Error sharing:', err);
@@ -1001,7 +1001,11 @@ function setupNativeShareButton(buttonId = 'native-share-button') {
 
 function resetGame() {
     document.getElementById('resultsModal').classList.remove('show');
-    livesRemaining = 4;
+    if (livesRemaining === 0) {
+        livesRemaining = 5;
+        streak = 0;
+        streakCountElement.textContent = streak;
+    }
     resultElement.textContent = '';
     updateHearts();
     resetOrderStyles();  //This clears background/border styling
