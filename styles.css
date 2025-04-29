@@ -260,6 +260,14 @@ li {
     box-sizing: border-box;
 }
 
+@media only screen and (max-width: 600px) {
+  .modal-content {
+    width: 98%; /* Increase width on small screens */
+    max-width: 98%;
+  }
+}
+
+
 #modal-body ul {
     list-style-type: none;
     padding: 0;
