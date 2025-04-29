@@ -18,7 +18,7 @@
 </script>
 <body>
     <div class="container">
-        <h1>Geo Ranker</h1>
+        <h1>🌎 Geo Ranker 🌍</h1>
         <div id="question-container">
             <div id="question"></div>
         </div>
@@ -33,9 +33,19 @@
   	Streak: <span id="streak-count">0</span> |
   	Best: <span id="streak-high-score">0</span>
 	<button id="play-again-screen" class="play-again-button hidden">Play Again</button>
+
 </div>
         <button id="check">Check Order</button>
     </div>
+
+<!-- Intro Modal -->
+<div id="introModal" class="modal">
+    <div class="modal-content">
+        <h2>Welcome to Geo Ranker!</h2>
+        <p>Arrange the options by clicking and dragging to correctly guess the order. You have four lives. Good luck!</p>
+        <button id="startGameButton" class="play-again-button">Start Game</button>
+    </div>
+</div>
 
     <!-- Modal -->
     <div id="resultsModal" class="modal">
