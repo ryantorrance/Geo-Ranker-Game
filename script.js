@@ -17,6 +17,9 @@ let highScore = localStorage.getItem('highScoreStreak') || 0;
 let sortableInstance = null;
 let modalPlayAgainClicked = false
 let usedQuestionIndices = [];
+let finalStreak = 0;
+let lastResultWasWin = false;
+
 
 function updateHearts() {
   const livesHearts = document.getElementById('lives-hearts');
@@ -763,21 +766,24 @@ function checkOrder() {
         livesRemaining--;
         updateHearts();
         if (livesRemaining === 0) {
-            resultElement.textContent = 'Game over. You are out of lives.';
-            itemsElement.querySelectorAll('li').forEach(li => {
-                li.draggable = false;
-            });
-            checkButton.disabled = true;
-	    if (sortableInstance) {
-    	    sortableInstance.option("disabled", true);
-	}
-            showResultsModal(false);
-	    checkButton.disabled = true;
-	    checkButton.classList.add('hidden');
+        finalStreak = streak; // ← capture before modifying anything
+        showResultsModal(false); // ← immediately show modal
 
-	    streak = 0;
-	    streakCountElement.textContent = streak;
+        resultElement.textContent = 'Game over. You are out of lives.';
+        itemsElement.querySelectorAll('li').forEach(li => {
+            li.draggable = false;
+        });
+        checkButton.disabled = true;
+        if (sortableInstance) {
+            sortableInstance.option("disabled", true);
         }
+        checkButton.classList.add('hidden');
+        document.getElementById('share-button').classList.remove('hidden');
+
+        streak = 0;
+        streakCountElement.textContent = streak;
+}
+
     }
 }
 
@@ -794,6 +800,7 @@ function arraysEqual(a, b) {
 }
 
 function showResultsModal(isWin) {
+    lastResultWasWin = isWin;
     const modal = document.getElementById('resultsModal');
     const modalContent = document.getElementById('modalContent');
     modalContent.innerHTML = ''; // Clear previous content
@@ -905,36 +912,96 @@ function showResultsModal(isWin) {
 
     const closeButton = modal.querySelector('.close');
     closeButton.onclick = function () {
-  modal.classList.remove('show');
-  checkButton.classList.add('hidden'); // Hide Check Order
-  playAgainScreenButton.classList.remove('hidden'); // Show Play Again
+    modal.classList.remove('show');
+    checkButton.classList.add('hidden');
+    playAgainScreenButton.classList.remove('hidden');
+
+    // Update main screen button text
+    playAgainScreenButton.textContent = lastResultWasWin ? 'Next Question' : 'Play Again';
     };
 
     window.onclick = function (event) {
   if (event.target === modal) {
     modal.classList.remove('show');
-    checkButton.classList.add('hidden'); // Hide Check Order
-    playAgainScreenButton.classList.remove('hidden'); // Show Play Again
+    checkButton.classList.add('hidden');
+    playAgainScreenButton.classList.remove('hidden');
+
+    // Update main screen button text
+    playAgainScreenButton.textContent = lastResultWasWin ? 'Next Question' : 'Play Again';
   }
-    };
+  };
+
 
 
     const playAgainButton = document.createElement('button');
-    playAgainButton.textContent = 'Play Again';
+    playAgainButton.textContent = isWin ? 'Next Question' : 'Play Again';
     playAgainButton.classList.add('play-again-button');
     playAgainButton.onclick = function () {
     modal.classList.remove('show');
     modalPlayAgainClicked = true; // mark that they used the modal CTA
+    guessedOrders = [];
     resetGame();
-};
+    };
 
-modalContent.appendChild(playAgainButton);
+    modalContent.appendChild(playAgainButton);
+
+	const shareButtonModal = document.createElement('button');
+	shareButtonModal.textContent = 'Share Your Score';
+	shareButtonModal.classList.add('share-button'); // Style it same as the main button
+	shareButtonModal.style.display = 'none';
+
+	// Set up click event
+	shareButtonModal.onclick = function () {
+        const shareText = `I got a streak of ${finalStreak} in Geo Ranker! 🌎 Try to beat me: www.georankergame.com`;
+
+    	if (navigator.share) {
+        // Native mobile/desktop share
+        navigator.share({
+            title: 'Geo Ranker',
+            text: shareText,
+            url: 'https://yourwebsite.com'
+        }).catch(err => {
+            console.error('Error using native share', err);
+        });
+    } else {
+        // Fallback if native share not supported
+        navigator.clipboard.writeText(shareText).then(() => {
+            alert('Score copied to clipboard!');
+        }).catch(err => {
+            console.error('Failed to copy text: ', err);
+        });
+    }
+	};
+
+	modalContent.appendChild(shareButtonModal);
+
+
+	if (!isWin) {
+    	shareButtonModal.style.display = 'block';
+	}
 }
+
+function setupNativeShareButton(buttonId = 'native-share-button') {
+  const shareButton = document.getElementById(buttonId);
+  if (!shareButton) return; // Exit safely if button not found
+
+  shareButton.addEventListener('click', async () => {
+    try {
+      await navigator.share({
+        title: 'Geo Ranker 🌎',
+        text: `I scored ${finalStreak} in Geo Ranker! Play here: https://www.georanker.com`,
+        url: 'https://www.georanker.com',
+      });
+    } catch (err) {
+      console.error('Error sharing:', err);
+    }
+  });
+}
+
 
 function resetGame() {
     document.getElementById('resultsModal').classList.remove('show');
     livesRemaining = 4;
-    guessedOrders = [];
     resultElement.textContent = '';
     updateHearts();
     resetOrderStyles();  //This clears background/border styling
@@ -946,15 +1013,38 @@ function resetGame() {
 	checkButton.classList.remove('hidden');
 	checkButton.disabled = false;
 	playAgainScreenButton.classList.add('hidden');
+	document.getElementById('share-button').classList.add('hidden');
+    finalStreak = 0;
+
 }
 
+
+
+
 document.getElementById('check').addEventListener('click', checkOrder);
+
+window.onload = function() {
+    const introModal = document.getElementById('introModal');
+    const startGameButton = document.getElementById('startGameButton');
+
+    introModal.classList.add('show');
+
+    startGameButton.addEventListener('click', function() {
+        introModal.classList.remove('show');
+    });
+    };
+
 
 playAgainScreenButton.addEventListener('click', () => {
     playAgainScreenButton.classList.add('hidden');
     resetGame();
-});
+    });
 
 
 displayQuestion();
 
+setupNativeShareButton();
+
+if (navigator.share) {
+  document.getElementById('native-share-button').classList.remove('hidden');
+}
