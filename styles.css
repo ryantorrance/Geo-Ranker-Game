@@ -43,7 +43,9 @@ body {
 
 h1 {
     margin-bottom: 20px;
+
 }
+
 
 #question-container {
     margin-bottom: 20px; /* Add margin-bottom */
@@ -409,3 +411,20 @@ li {
   font-size: 1.5em;
   letter-spacing: 0.3em;
 }
+
+.share-button {
+  display: block;
+  margin: 20px auto 0 auto;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 8px;
+  border: none;
+  background-color: #007BFF; /* bright blue */
+  color: white;
+}
+
+.share-button:hover {
+  background-color: #0069d9; /* slightly darker blue on hover */
+}
+
