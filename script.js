@@ -698,9 +698,13 @@ function displayQuestion() {
     itemsElement.innerHTML = '';
 
     sortableInstance = Sortable.create(itemsElement, {
-        animation: 150,
-        ghostClass: 'sortable-ghost'
-    });
+    animation: 150,
+    ghostClass: 'sortable-ghost',
+    onEnd: function () {
+        resetOptionStyles();
+    }
+   });
+
 
     currentAnswer.forEach(option => {
         const li = document.createElement('li');
@@ -717,6 +721,18 @@ function displayQuestion() {
     highestLabel.textContent = currentQuestion.highest;
     lowestLabel.textContent = currentQuestion.lowest;
 }
+
+function resetOptionStyles() {
+  itemsElement.classList.remove('correct-order', 'incorrect-order'); // remove container-level styles
+  itemsElement.querySelectorAll('li').forEach(li => {
+    li.style.backgroundColor = '#f9f9f9'; // or your default background
+    li.style.borderColor = '#ccc'; // or your default border
+    li.classList.remove('correct-item', 'incorrect-item');
+  });
+}
+
+
+
 
 function checkOrder() {
     const selectedItems = Array.from(itemsElement.children).map(item => item.textContent);
