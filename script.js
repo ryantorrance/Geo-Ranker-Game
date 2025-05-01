@@ -673,6 +673,46 @@ const questions = [
   options: ['Kuala Lumpur–Singapore', 'London–Dublin', 'New York–London', 'Hong Kong–Taipei'],
   answer: ['Kuala Lumpur–Singapore', 'Hong Kong–Taipei', 'London–Dublin', 'New York–London'],
   metrics: ['30,000+', '28,000+', '24,000+', '21,000+']
+},
+{
+  question: 'Rank these capital cities by their latitude from farthest north to farthest south:',
+  highest: 'Farthest North',
+  lowest: 'Farthest South',
+  options: ['Reykjavík', 'Oslo', 'Ottawa', 'Canberra'],
+  answer: ['Reykjavík', 'Oslo', 'Ottawa', 'Canberra'],
+  metrics: ['64°N', '59°N', '45°N', '35°S']
+},
+{
+  question: 'Rank these countries by average annual snowfall from most to least:',
+  highest: 'Most Snowfall',
+  lowest: 'Least Snowfall',
+  options: ['Japan', 'Canada', 'Russia', 'Norway'],
+  answer: ['Japan', 'Canada', 'Russia', 'Norway'],
+  metrics: ['600 in', '400 in', '300 in', '200 in']
+},
+{
+  question: 'Rank these cities by population density from highest to lowest:',
+  highest: 'Most Dense',
+  lowest: 'Least Dense',
+  options: ['Manila', 'Dhaka', 'Paris', 'New York City'],
+  answer: ['Manila', 'Dhaka', 'Paris', 'New York City'],
+  metrics: ['41,500/km²', '29,000/km²', '21,000/km²', '11,000/km²']
+},
+{
+  question: 'Rank these rivers by average discharge volume from highest to lowest:',
+  highest: 'Most Water Discharge',
+  lowest: 'Least Water Discharge',
+  options: ['Amazon', 'Congo', 'Ganges', 'Mississippi'],
+  answer: ['Amazon', 'Congo', 'Ganges', 'Mississippi'],
+  metrics: ['209,000 m³/s', '41,000 m³/s', '38,000 m³/s', '16,800 m³/s']
+},
+{
+  question: 'Rank these countries by highest recorded temperature from highest to lowest:',
+  highest: 'Hottest Temperature',
+  lowest: 'Coolest Maximum',
+  options: ['Kuwait', 'Iraq', 'Pakistan', 'Mexico'],
+  answer: ['Kuwait', 'Iraq', 'Pakistan', 'Mexico'],
+  metrics: ['54.0°C', '53.9°C', '53.7°C', '52.0°C']
 }
 
 ];
