@@ -817,8 +817,28 @@ function checkOrder() {
 
     } else {
         resultElement.textContent = `Incorrect order. ${correctCount}/${currentQuestion.answer.length} correct. Please try again.`;
-        itemsElement.classList.add('incorrect-order'); // Add class for incorrect order
-        itemsElement.classList.remove('correct-order'); // Remove correct-order class
+        itemsElement.classList.add('incorrect-order');
+	itemsElement.classList.remove('correct-order');
+
+	const items = Array.from(itemsElement.children);
+items.forEach((li, index) => {
+  const guessedValue = li.textContent;
+  const correctValue = currentQuestion.answer[index];
+
+  // Always reset
+  li.classList.remove('correct-item', 'incorrect-item');
+  li.style.backgroundColor = '';
+  li.style.borderColor = '';
+
+  // Apply correct or incorrect
+  if (guessedValue === correctValue) {
+    li.classList.add('correct-item');
+  } else {
+    li.classList.add('incorrect-item');
+  }
+});
+
+
         livesRemaining--;
         updateHearts();
         if (livesRemaining === 0) {
