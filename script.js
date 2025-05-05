@@ -1035,7 +1035,7 @@ function showResultsModal(isWin) {
         navigator.share({
             title: 'Geo Ranker',
             text: shareText,
-            url: 'https://yourwebsite.com'
+            url: 'https://georankergame.com'
         }).catch(err => {
             console.error('Error using native share', err);
         });
