@@ -437,3 +437,127 @@ li {
   background-color: #0069d9; /* slightly darker blue on hover */
 }
 
+.mode-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* This centers it horizontally */
+  gap: 10px;
+  margin-top: 20px;
+  font-family: sans-serif;
+  text-align: center;
+}
+
+
+.mode-label {
+  font-size: 16px;
+  color: #aaa;
+  font-weight: normal;
+  transition: color 0.3s, font-weight 0.3s;
+}
+
+.mode-label.active {
+  color: #000;
+  font-weight: bold;
+}
+
+/* Slider toggle styling */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 24px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0;
+  right: 0; bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 24px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #4caf50;
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+#modeConfirmModal {
+  display: none;
+  position: fixed;
+  z-index: 1001;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  align-items: center;  /* Vertically center */
+  justify-content: center;  /* Horizontally center */
+}
+
+#modeConfirmModal.show {
+  display: flex;
+}
+
+#modeConfirmModal .modal-content {
+  background-color: #fff;
+  padding: 16px 20px;
+  border: 1px solid #888;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 400px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+/* Optional: Cap the modal’s max height */
+@media (max-height: 500px) {
+  #modeConfirmModal .modal-content {
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+}
+
+
+
+#modeConfirmModal .modal-buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+#modeConfirmModal .modal-buttons button {
+  padding: 8px 16px;
+  border: none;
+  background-color: #0066cc;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#modeConfirmModal .modal-buttons button:hover {
+  background-color: #004999;
+}
+
