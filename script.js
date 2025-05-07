@@ -6,6 +6,10 @@ const checkButton = document.getElementById('check');
 const highestLabel = document.getElementById('highest');
 const lowestLabel = document.getElementById('lowest');
 const playAgainScreenButton = document.getElementById('play-again-screen');
+const modeSwitch = document.getElementById('mode-switch');
+const easyLabel = document.getElementById('easy-label');
+const hardLabel = document.getElementById('hard-label');
+const livesContainer = document.getElementById('lives');
 
 
 let currentQuestion = null;
@@ -19,6 +23,56 @@ let modalPlayAgainClicked = false
 let usedQuestionIndices = [];
 let finalStreak = 0;
 let lastResultWasWin = false;
+let isEasyMode = false;
+let pendingModeChange = null; // new global flag
+
+if (modeSwitch.checked) {
+    // Hard mode is active
+    hardLabel.classList.add('active');
+    easyLabel.classList.remove('active');
+} else {
+    // Easy mode is active
+    easyLabel.classList.add('active');
+    hardLabel.classList.remove('active');
+}
+
+
+modeSwitch.addEventListener('change', (e) => {
+  e.preventDefault(); // prevent actual toggle
+  pendingModeChange = !modeSwitch.checked; // store intended state
+  document.getElementById('modeConfirmModal').style.display = 'flex'; // show modal
+});
+
+// Confirm button action
+document.getElementById('confirmModeChange').addEventListener('click', () => {
+  isEasyMode = pendingModeChange;
+  modeSwitch.checked = !isEasyMode;
+
+  if (isEasyMode) {
+    easyLabel.classList.add('active');
+    hardLabel.classList.remove('active');
+    livesContainer.style.display = 'none';
+  } else {
+    hardLabel.classList.add('active');
+    easyLabel.classList.remove('active');
+    livesContainer.style.display = 'block';
+    livesRemaining = 5;
+    updateHearts();
+  }
+
+  streak = 0;
+  streakCountElement.textContent = streak;
+  guessedOrders = [];
+  document.getElementById('modeConfirmModal').style.display = 'none';
+  resetGame();
+});
+
+// Cancel button (X)
+document.getElementById('cancelModeChange').addEventListener('click', () => {
+  modeSwitch.checked = isEasyMode ? false : true;
+
+  document.getElementById('modeConfirmModal').style.display = 'none';
+});
 
 
 function updateHearts() {
@@ -784,7 +838,6 @@ function checkOrder() {
 
     guessedOrders.push(selectedItems); // Add the new guess to the guessed orders array
 
-
     let correctCount = 0;
     selectedItems.forEach((item, index) => {
         if (item === currentQuestion.answer[index]) {
@@ -795,73 +848,78 @@ function checkOrder() {
     if (arraysEqual(selectedItems, currentQuestion.answer)) {
         resultElement.textContent = 'Correct order!';
         itemsElement.classList.add('correct-order');
-        itemsElement.classList.remove('incorrect-order'); // Remove incorrect-order class
+        itemsElement.classList.remove('incorrect-order');
         checkButton.disabled = true;
-	if (sortableInstance) {
-    	sortableInstance.option("disabled", true);
-	}
+
+        if (sortableInstance) {
+            sortableInstance.option("disabled", true);
+        }
+
         showResultsModal(true);
-	checkButton.disabled = true;
-	checkButton.classList.add('hidden');
-	streak++;
-	streakCountElement.textContent = streak;
+        checkButton.disabled = true;
+        checkButton.classList.add('hidden');
+        streak++;
+        streakCountElement.textContent = streak;
 
-
-	// Check and update high score
-	if (streak > highScore) {
-    	highScore = streak;
-    	localStorage.setItem('highScoreStreak', highScore);
-    	streakHighScoreElement.textContent = highScore;
-
-}
+        // Update high score if needed
+        if (streak > highScore) {
+            highScore = streak;
+            localStorage.setItem('highScoreStreak', highScore);
+            streakHighScoreElement.textContent = highScore;
+        }
 
     } else {
         resultElement.textContent = `Incorrect order. ${correctCount}/${currentQuestion.answer.length} correct. Please try again.`;
         itemsElement.classList.add('incorrect-order');
-	itemsElement.classList.remove('correct-order');
+        itemsElement.classList.remove('correct-order');
 
-	const items = Array.from(itemsElement.children);
-items.forEach((li, index) => {
-  const guessedValue = li.textContent;
-  const correctValue = currentQuestion.answer[index];
+        const items = Array.from(itemsElement.children);
+        items.forEach((li, index) => {
+            const guessedValue = li.textContent;
+            const correctValue = currentQuestion.answer[index];
 
-  // Always reset
-  li.classList.remove('correct-item', 'incorrect-item');
-  li.style.backgroundColor = '';
-  li.style.borderColor = '';
+            // Reset styles
+            li.classList.remove('correct-item', 'incorrect-item');
+            li.style.backgroundColor = '';
+            li.style.borderColor = '';
 
-  // Apply correct or incorrect
-  if (guessedValue === correctValue) {
-    li.classList.add('correct-item');
-  } else {
-    li.classList.add('incorrect-item');
-  }
-});
-
-
-        livesRemaining--;
-        updateHearts();
-        if (livesRemaining === 0) {
-        finalStreak = streak; // ← capture before modifying anything
-        showResultsModal(false); // ← immediately show modal
-
-        resultElement.textContent = 'Game over. You are out of lives.';
-        itemsElement.querySelectorAll('li').forEach(li => {
-            li.draggable = false;
+            // Mark correct/incorrect
+            if (guessedValue === correctValue) {
+                li.classList.add('correct-item');
+            } else {
+                li.classList.add('incorrect-item');
+            }
         });
-        checkButton.disabled = true;
-        if (sortableInstance) {
-            sortableInstance.option("disabled", true);
+
+        // ✅ Only subtract lives in Hard Mode
+        if (!isEasyMode) {
+            livesRemaining--;
+            updateHearts();
+
+            if (livesRemaining === 0) {
+                finalStreak = streak;
+                showResultsModal(false);
+
+                resultElement.textContent = 'Game over. You are out of lives.';
+                itemsElement.querySelectorAll('li').forEach(li => {
+                    li.draggable = false;
+                });
+
+                checkButton.disabled = true;
+                if (sortableInstance) {
+                    sortableInstance.option("disabled", true);
+                }
+
+                checkButton.classList.add('hidden');
+                document.getElementById('share-button').classList.remove('hidden');
+
+                streak = 0;
+                streakCountElement.textContent = streak;
+            }
         }
-        checkButton.classList.add('hidden');
-        document.getElementById('share-button').classList.remove('hidden');
-
-        streak = 0;
-        streakCountElement.textContent = streak;
-}
-
     }
 }
+
 
 function resetOrderStyles() {
     itemsElement.classList.remove('incorrect-order'); // Remove incorrect-order class
