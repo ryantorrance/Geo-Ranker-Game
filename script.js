@@ -791,6 +791,11 @@ function displayQuestion() {
     questionElement.textContent = currentQuestion.question;
     itemsElement.innerHTML = '';
 
+    if (sortableInstance) {
+    sortableInstance.destroy(); // Clean up the old instance first
+    }
+
+
     sortableInstance = Sortable.create(itemsElement, {
     animation: 150,
     ghostClass: 'sortable-ghost',
