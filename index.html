@@ -36,6 +36,17 @@
 
 </div>
         <button id="check">Check Order</button>
+
+<div id="mode-toggle" class="mode-toggle">
+  <span id="easy-label" class="mode-label active">Easy</span>
+  <label class="switch">
+    <input type="checkbox" id="mode-switch" checked>
+    <span class="slider"></span>
+  </label>
+  <span id="hard-label" class="mode-label">Hard</span>
+</div>
+
+
     </div>
 
 <!-- Intro Modal -->
@@ -46,6 +57,15 @@
         <button id="startGameButton" class="play-again-button">Start Game</button>
     </div>
 </div>
+
+<div id="modeConfirmModal" class="modal">
+  <div class="modal-content">
+    <span class="close" id="cancelModeChange">&times;</span>
+    <p>Switching game mode will reset your current streak. Are you sure?</p>
+    <button id="confirmModeChange" class="play-again-button">Yes, switch mode</button>
+  </div>
+</div>
+
 
     <!-- Modal -->
     <div id="resultsModal" class="modal">
@@ -59,3 +79,5 @@
     <script src="script.js"></script>
 </body>
 </html>
+
+
