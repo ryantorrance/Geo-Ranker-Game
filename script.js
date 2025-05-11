@@ -813,6 +813,9 @@ function displayQuestion() {
         itemsElement.appendChild(li);
     });
 
+    // Add click-to-move functionality
+    setupClickToMove();
+
     resultElement.textContent = '';
     updateHearts();
     checkButton.disabled = false;
@@ -830,6 +833,27 @@ function resetOptionStyles() {
   });
 }
 
+
+function setupClickToMove() {
+  itemsElement.querySelectorAll('li').forEach((li) => {
+    li.addEventListener('click', () => {
+      const items = Array.from(itemsElement.children);
+      const currentIndex = items.indexOf(li);
+      const nextIndex = (currentIndex + 1) % items.length;
+      const nextItem = items[nextIndex];
+
+      // Swap the DOM elements by replacing and reinserting
+      const cloneLi = li.cloneNode(true);
+      const cloneNext = nextItem.cloneNode(true);
+
+      itemsElement.replaceChild(cloneNext, li);
+      itemsElement.replaceChild(cloneLi, nextItem);
+
+      // Re-bind click listeners to new elements
+      setupClickToMove();
+    });
+  });
+}
 
 
 
