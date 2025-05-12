@@ -26,6 +26,7 @@ let lastResultWasWin = false;
 let isEasyMode = false;
 let pendingModeChange = null; // new global flag
 
+
 if (modeSwitch.checked) {
     // Hard mode is active
     hardLabel.classList.add('active');
@@ -797,12 +798,21 @@ function displayQuestion() {
 
 
     sortableInstance = Sortable.create(itemsElement, {
-    animation: 150,
-    ghostClass: 'sortable-ghost',
-    onEnd: function () {
-        resetOptionStyles();
-    }
-   });
+  animation: 150,
+  ghostClass: 'sortable-ghost',
+  onEnd: function () {
+    // Reapply click-to-move behavior after drag
+    selectedElement = null;
+
+    // Remove all 'selected-option' classes
+    itemsElement.querySelectorAll('li').forEach(li => {
+      li.classList.remove('selected-option');
+    });
+
+    setupClickToMove();
+  }
+});
+
 
 
     currentAnswer.forEach(option => {
@@ -838,45 +848,50 @@ let selectedElement = null;
 
 function setupClickToMove() {
   const items = Array.from(itemsElement.children);
-  
+
   items.forEach((li) => {
     li.onclick = () => {
-      if (!selectedElement) {
-        // First click – mark as selected
-        selectedElement = li;
-        li.classList.add('selected-option');
-      } else if (selectedElement === li) {
-        // Deselect if clicked again
-        li.classList.remove('selected-option');
-        selectedElement = null;
+      // Clear all previous highlights
+      items.forEach(item => item.classList.remove('selected-option'));
+
+      if (!selectedElement || selectedElement === li) {
+        if (selectedElement === li) {
+          // Deselect if clicking again
+          selectedElement = null;
+        } else {
+          selectedElement = li;
+          li.classList.add('selected-option');
+        }
       } else {
-        // Second click – swap and reset selection
+        // Swap
         const selectedClone = selectedElement.cloneNode(true);
         const targetClone = li.cloneNode(true);
 
-        // Remove highlight class from both clones
-selectedClone.classList.remove('selected-option');
-targetClone.classList.remove('selected-option');
+        selectedClone.classList.remove('selected-option');
+        targetClone.classList.remove('selected-option');
 
-// Add animation to the selectedClone going into new position
-selectedClone.classList.add('option-move');
+        selectedClone.classList.add('option-move');
 
-// Replace the elements
-itemsElement.replaceChild(selectedClone, li);
-itemsElement.replaceChild(targetClone, selectedElement);
+        // Replace
+        itemsElement.replaceChild(selectedClone, li);
+        itemsElement.replaceChild(targetClone, selectedElement);
 
-// Re-bind click events
-setTimeout(() => {
-  selectedClone.classList.remove('option-move');
-}, 300);
+        selectedElement = null;
 
-selectedElement = null;
-setupClickToMove();
+        // Animate
+        setTimeout(() => {
+          selectedClone.classList.remove('option-move');
+        }, 300);
 
+        // Refresh click bindings
+        setupClickToMove();
       }
     };
   });
 }
+
+
+
 
 
 
