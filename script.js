@@ -801,16 +801,19 @@ function displayQuestion() {
   animation: 150,
   ghostClass: 'sortable-ghost',
   onEnd: function () {
-    // Reapply click-to-move behavior after drag
-    selectedElement = null;
+  selectedElement = null;
 
-    // Remove all 'selected-option' classes
-    itemsElement.querySelectorAll('li').forEach(li => {
-      li.classList.remove('selected-option');
-    });
+  // Remove styling from previous guesses
+  itemsElement.classList.remove('correct-order', 'incorrect-order');
+  itemsElement.querySelectorAll('li').forEach(li => {
+    li.classList.remove('selected-option', 'correct-item', 'incorrect-item');
+    li.style.backgroundColor = '#f9f9f9';
+    li.style.borderColor = '#ccc';
+  });
 
-    setupClickToMove();
-  }
+  setupClickToMove();
+}
+
 });
 
 
@@ -876,15 +879,24 @@ function setupClickToMove() {
         itemsElement.replaceChild(selectedClone, li);
         itemsElement.replaceChild(targetClone, selectedElement);
 
-        selectedElement = null;
+        // After swapping
+selectedElement = null;
 
-        // Animate
-        setTimeout(() => {
-          selectedClone.classList.remove('option-move');
-        }, 300);
+// Clear all red/green styles after a swap
+itemsElement.classList.remove('correct-order', 'incorrect-order');
+itemsElement.querySelectorAll('li').forEach(li => {
+  li.classList.remove('correct-item', 'incorrect-item');
+  li.style.backgroundColor = '#f9f9f9';
+  li.style.borderColor = '#ccc';
+});
 
-        // Refresh click bindings
-        setupClickToMove();
+// Animate
+setTimeout(() => {
+  selectedClone.classList.remove('option-move');
+}, 300);
+
+// Re-bind click handlers
+setupClickToMove();
       }
     };
   });
@@ -893,17 +905,22 @@ function setupClickToMove() {
 
 
 
-
-
-
-
 function checkOrder() {
     const selectedItems = Array.from(itemsElement.children).map(item => item.textContent);
 
     if (guessedOrders.some(order => arraysEqual(order, selectedItems))) {
-        resultElement.textContent = 'You already guessed this. Try a different order.';
-        return;
-    }
+    // Count how many items are correct
+    let correctCount = 0;
+    selectedItems.forEach((item, index) => {
+        if (item === currentQuestion.answer[index]) {
+            correctCount++;
+        }
+    });
+
+    resultElement.textContent = `Already guessed. ${correctCount}/${currentQuestion.answer.length} correct. Try a different order.`;
+    return;
+}
+
 
     guessedOrders.push(selectedItems); // Add the new guess to the guessed orders array
 
