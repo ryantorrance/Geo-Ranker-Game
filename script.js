@@ -834,26 +834,51 @@ function resetOptionStyles() {
 }
 
 
+let selectedElement = null;
+
 function setupClickToMove() {
-  itemsElement.querySelectorAll('li').forEach((li) => {
-    li.addEventListener('click', () => {
-      const items = Array.from(itemsElement.children);
-      const currentIndex = items.indexOf(li);
-      const nextIndex = (currentIndex + 1) % items.length;
-      const nextItem = items[nextIndex];
+  const items = Array.from(itemsElement.children);
+  
+  items.forEach((li) => {
+    li.onclick = () => {
+      if (!selectedElement) {
+        // First click – mark as selected
+        selectedElement = li;
+        li.classList.add('selected-option');
+      } else if (selectedElement === li) {
+        // Deselect if clicked again
+        li.classList.remove('selected-option');
+        selectedElement = null;
+      } else {
+        // Second click – swap and reset selection
+        const selectedClone = selectedElement.cloneNode(true);
+        const targetClone = li.cloneNode(true);
 
-      // Swap the DOM elements by replacing and reinserting
-      const cloneLi = li.cloneNode(true);
-      const cloneNext = nextItem.cloneNode(true);
+        // Remove highlight class from both clones
+selectedClone.classList.remove('selected-option');
+targetClone.classList.remove('selected-option');
 
-      itemsElement.replaceChild(cloneNext, li);
-      itemsElement.replaceChild(cloneLi, nextItem);
+// Add animation to the selectedClone going into new position
+selectedClone.classList.add('option-move');
 
-      // Re-bind click listeners to new elements
-      setupClickToMove();
-    });
+// Replace the elements
+itemsElement.replaceChild(selectedClone, li);
+itemsElement.replaceChild(targetClone, selectedElement);
+
+// Re-bind click events
+setTimeout(() => {
+  selectedClone.classList.remove('option-move');
+}, 300);
+
+selectedElement = null;
+setupClickToMove();
+
+      }
+    };
   });
 }
+
+
 
 
 
