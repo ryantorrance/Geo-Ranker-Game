@@ -188,15 +188,44 @@ li {
     border-radius: 5px;
 }
 
-.guessed-orders-section {
-    margin-top: 20px;
+
+
+/* Reduce spacing around the modal content */
+#resultsModal .modal-content {
+  padding: 16px 16px;
 }
 
-.guessed-order-line {
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: 5px;
+/* Shrink space above and below headings */
+#resultsModal .modal-content h2,
+#resultsModal .modal-content h3 {
+  margin: 8px 0;
 }
+
+/* Reduce space between guessed order lines */
+.guessed-order-line {
+  margin-bottom: 4px;
+  padding-bottom: 2px;
+  gap: 6px;
+}
+
+/* Tighter spacing for the correct answer list */
+#correct-order-list li {
+  padding: 6px 10px;
+  margin: 4px 0;
+}
+
+/* Reduce space above and below the dashed line */
+#resultsModal hr {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+/* Tighten up guessed orders section */
+.guessed-orders-section {
+  margin-top: 12px;
+}
+
+
 
 .guessed-order-line.correct-order .order-item,
 .guessed-order-line.correct-order .order-number {
