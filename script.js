@@ -25,6 +25,7 @@ let finalStreak = 0;
 let lastResultWasWin = false;
 let isEasyMode = false;
 let pendingModeChange = null; // new global flag
+let hasSubmittedGuess = false;
 
 
 if (modeSwitch.checked) {
@@ -39,16 +40,39 @@ if (modeSwitch.checked) {
 
 
 modeSwitch.addEventListener('change', (e) => {
-  e.preventDefault(); // prevent actual toggle
-  pendingModeChange = !modeSwitch.checked; // store intended state
-  document.getElementById('modeConfirmModal').style.display = 'flex'; // show modal
+  e.preventDefault();
+
+  // If a guess has been submitted, show the confirmation modal
+  if (hasSubmittedGuess) {
+    pendingModeChange = !modeSwitch.checked;
+    modeSwitch.checked = !pendingModeChange; // visually revert
+    document.getElementById('modeConfirmModal').style.display = 'flex';
+    return;
+  }
+
+  // If no guess has been made yet, just change the mode silently
+  isEasyMode = !modeSwitch.checked;
+  modeSwitch.checked = !isEasyMode;
+
+  // Update label styles
+  if (isEasyMode) {
+    easyLabel.classList.add('active');
+    hardLabel.classList.remove('active');
+    livesContainer.style.display = 'none';
+  } else {
+    hardLabel.classList.add('active');
+    easyLabel.classList.remove('active');
+    livesContainer.style.display = 'block';
+    livesRemaining = 5;
+    updateHearts();
+  }
 });
 
-// Confirm button action
 document.getElementById('confirmModeChange').addEventListener('click', () => {
   isEasyMode = pendingModeChange;
   modeSwitch.checked = !isEasyMode;
 
+  // Update mode labels and lives visibility
   if (isEasyMode) {
     easyLabel.classList.add('active');
     hardLabel.classList.remove('active');
@@ -61,12 +85,17 @@ document.getElementById('confirmModeChange').addEventListener('click', () => {
     updateHearts();
   }
 
+  // Reset streak and question state
   streak = 0;
   streakCountElement.textContent = streak;
   guessedOrders = [];
+
+  hasSubmittedGuess = false; // Reset guess tracker for new round
   document.getElementById('modeConfirmModal').style.display = 'none';
-  resetGame();
+  resetGame(); // Load new question
 });
+
+
 
 // Cancel button (X)
 document.getElementById('cancelModeChange').addEventListener('click', () => {
@@ -907,6 +936,9 @@ setupClickToMove();
 
 function checkOrder() {
     const selectedItems = Array.from(itemsElement.children).map(item => item.textContent);
+    if (!hasSubmittedGuess) {
+    hasSubmittedGuess = true;
+    }
 
     if (guessedOrders.some(order => arraysEqual(order, selectedItems))) {
     // Count how many items are correct
@@ -956,28 +988,29 @@ function checkOrder() {
 
     } else {
         resultElement.textContent = `Incorrect order. ${correctCount}/${currentQuestion.answer.length} correct. Please try again.`;
-        itemsElement.classList.add('incorrect-order');
         itemsElement.classList.remove('correct-order');
 
         const items = Array.from(itemsElement.children);
-        items.forEach((li, index) => {
-            const guessedValue = li.textContent;
-            const correctValue = currentQuestion.answer[index];
+items.forEach((li, index) => {
+  const guessedValue = li.textContent;
+  const correctValue = currentQuestion.answer[index];
 
-            // Reset styles
-            li.classList.remove('correct-item', 'incorrect-item');
-            li.style.backgroundColor = '';
-            li.style.borderColor = '';
+  // Always reset styles
+  li.classList.remove('correct-item', 'incorrect-item');
+  li.style.backgroundColor = '';
+  li.style.borderColor = '';
 
-            // Mark correct/incorrect
-            if (guessedValue === correctValue) {
-                li.classList.add('correct-item');
-            } else {
-                li.classList.add('incorrect-item');
-            }
-        });
+  // Only add styling in Easy Mode
+  if (isEasyMode) {
+    if (guessedValue === correctValue) {
+      li.classList.add('correct-item');
+    } else {
+      li.classList.add('incorrect-item');
+    }
+  }
+});
 
-        // ✅ Only subtract lives in Hard Mode
+
         if (!isEasyMode) {
             livesRemaining--;
             updateHearts();
@@ -1220,27 +1253,33 @@ function setupNativeShareButton(buttonId = 'native-share-button') {
 
 
 function resetGame() {
-    document.getElementById('resultsModal').classList.remove('show');
+    // Only reset hasSubmittedGuess if this is the actual beginning of a new game
     if (livesRemaining === 0) {
+        hasSubmittedGuess = false;
         livesRemaining = 5;
         streak = 0;
         streakCountElement.textContent = streak;
     }
+
+    document.getElementById('resultsModal').classList.remove('show');
+    guessedOrders = [];
     resultElement.textContent = '';
     updateHearts();
-    resetOrderStyles();  //This clears background/border styling
-    itemsElement.classList.remove('correct-order', 'incorrect-order');  //Also remove group  classes
+    resetOrderStyles();  // Clears background/border styling
+    itemsElement.classList.remove('correct-order', 'incorrect-order');
     displayQuestion();
-    if (sortableInstance) {
-    sortableInstance.option("disabled", false);
-	}
-	checkButton.classList.remove('hidden');
-	checkButton.disabled = false;
-	playAgainScreenButton.classList.add('hidden');
-	document.getElementById('share-button').classList.add('hidden');
-    finalStreak = 0;
 
+    if (sortableInstance) {
+        sortableInstance.option("disabled", false);
+    }
+
+    checkButton.classList.remove('hidden');
+    checkButton.disabled = false;
+    playAgainScreenButton.classList.add('hidden');
+    document.getElementById('share-button').classList.add('hidden');
+    finalStreak = 0;
 }
+
 
 
 
